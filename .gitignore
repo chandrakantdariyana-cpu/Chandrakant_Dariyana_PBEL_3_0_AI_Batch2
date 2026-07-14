@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+
+# PyCharm
+.idea/
+
+# Virtual Environment
+venv/
+.venv/
+
+# Datasets
+data/raw/
+data/processed/
+
+# Model Files
+models/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS Files
+.DS_Store
+Thumbs.db
