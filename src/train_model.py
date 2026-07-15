@@ -13,7 +13,10 @@ import joblib
 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
+
 from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+
 from sklearn.metrics import accuracy_score
 
 
@@ -103,17 +106,50 @@ def train_logistic_regression(X_train, X_test, y_train, y_test):
 
 
 # ==========================================================
+# Random Forest
+# ==========================================================
+
+def train_random_forest(X_train, X_test, y_train, y_test):
+
+    print("\n" + "=" * 60)
+    print("Training Random Forest...")
+    print("=" * 60)
+
+    model = RandomForestClassifier(
+        n_estimators=100,
+        random_state=42,
+        n_jobs=-1
+    )
+
+    model.fit(X_train, y_train)
+
+    predictions = model.predict(X_test)
+
+    accuracy = accuracy_score(y_test, predictions)
+
+    print(f"Accuracy : {accuracy:.4f}")
+
+    return model
+
+
+# ==========================================================
 # Save Model
 # ==========================================================
 
-def save_model(model, encoder):
+def save_model(model, encoder, model_name):
 
-    joblib.dump(model, MODEL_DIR / "logistic_regression.pkl")
+    joblib.dump(
+        model,
+        MODEL_DIR / f"{model_name}.pkl"
+    )
 
-    joblib.dump(encoder, MODEL_DIR / "label_encoder.pkl")
+    joblib.dump(
+        encoder,
+        MODEL_DIR / "label_encoder.pkl"
+    )
 
     print("\nModel Saved Successfully.")
-    print(MODEL_DIR)
+    print(MODEL_DIR / f"{model_name}.pkl")
 
 
 # ==========================================================
@@ -131,4 +167,8 @@ if __name__ == "__main__":
         y_test
     )
 
-    save_model(model, encoder)
+    save_model(
+        model,
+        encoder,
+        "logistic_regression"
+    )
