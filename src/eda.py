@@ -50,31 +50,62 @@ def plot_attack_distribution():
 
         print("\nGenerating attack distribution graph...")
 
-        plt.figure(figsize=(14, 7))
+        plt.style.use("dark_background")
 
-        attack_count.plot(
-            kind="bar",
-            color="steelblue",
-            edgecolor="black"
+        plt.figure(figsize=(12, 8))
+
+        attack_count = attack_count.sort_values(ascending=True)
+
+        bars = plt.barh(
+            attack_count.index,
+            attack_count.values,
+            color="royalblue",
+            edgecolor="white"
         )
+
+        plt.xscale("log")
 
         plt.title(
-            "Attack Distribution in CICIDS2017",
-            fontsize=18,
-            fontweight="bold"
+            "CICIDS2017 Attack Distribution",
+            fontsize=20,
+            fontweight="bold",
+            pad=15
         )
 
-        plt.xlabel("Attack Type", fontsize=14)
+        plt.xlabel(
+            "Number of Records (Log Scale)",
+            fontsize=14
+        )
 
-        plt.ylabel("Number of Records", fontsize=14)
+        plt.ylabel(
+            "Attack Category",
+            fontsize=14
+        )
 
-        plt.xticks(rotation=45, ha="right")
+        plt.grid(
+            axis="x",
+            linestyle="--",
+            alpha=0.4
+        )
 
-        plt.grid(axis="y", linestyle="--", alpha=0.5)
+        # Display values on bars
+        for bar in bars:
+            width = bar.get_width()
+
+            plt.text(
+                width * 0.95,  # Bar ke andar
+                bar.get_y() + bar.get_height() / 2,
+                f"{int(width):,}",
+                va="center",
+                ha="right",  # Right align
+                fontsize=9,
+                color="white",
+                fontweight="bold"
+            )
 
         plt.tight_layout()
 
-        save_path = IMAGE_DIR / "Attack_Distribution.png"
+        save_path = IMAGE_DIR / "Attack_Distribution_Horizontal.png"
 
         plt.savefig(
             save_path,
@@ -82,11 +113,7 @@ def plot_attack_distribution():
             bbox_inches="tight"
         )
 
-        print(f"Graph saved to : {save_path}")
-
         plt.show()
-
-        plt.close()
 
         print("Program completed successfully.")
         print("=" * 60)
