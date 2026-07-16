@@ -2,20 +2,20 @@
 
                     BENIGN       0.92      1.00      0.96   2095057
                        Bot       1.00      0.01      0.02      1948
-                      DDoS       1.00      0.63      0.78    128014
-             DoS GoldenEye       1.00      0.19      0.32     10286
-                  DoS Hulk       0.99      0.89      0.94    172846
-          DoS Slowhttptest       1.00      0.24      0.39      5228
-             DoS slowloris       1.00      0.06      0.12      5385
+                      DDoS       1.00      0.64      0.78    128014
+             DoS GoldenEye       1.00      0.10      0.19     10286
+                  DoS Hulk       1.00      0.90      0.95    172846
+          DoS Slowhttptest       1.00      0.03      0.06      5228
+             DoS slowloris       0.00      0.00      0.00      5385
                FTP-Patator       0.00      0.00      0.00      5931
-                Heartbleed       1.00      0.09      0.17        11
-              Infiltration       0.00      0.00      0.00        36
+                Heartbleed       0.00      0.00      0.00        11
+              Infiltration       1.00      0.11      0.20        36
                   PortScan       1.00      0.00      0.00     90694
-               SSH-Patator       1.00      0.00      0.00      3219
+               SSH-Patator       1.00      0.01      0.02      3219
   Web Attack � Brute Force       0.00      0.00      0.00      1470
-Web Attack � Sql Injection       0.00      0.00      0.00        21
+Web Attack � Sql Injection       1.00      0.10      0.17        21
           Web Attack � XSS       0.00      0.00      0.00       652
 
                   accuracy                           0.93   2520798
-                 macro avg       0.66      0.21      0.25   2520798
+                 macro avg       0.66      0.19      0.22   2520798
               weighted avg       0.93      0.93      0.90   2520798

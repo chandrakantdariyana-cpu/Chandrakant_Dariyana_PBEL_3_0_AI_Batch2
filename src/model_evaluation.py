@@ -1,317 +1,271 @@
-import pandas as pd
-import numpy as np
-import joblib
+"""
+===========================================================
+Project : AI-Based Cyber Threat Detection Framework
+File    : model_evaluation.py
 
+Author  : Chandrakant
+
+Purpose :
+Evaluate the best trained Machine Learning model.
+===========================================================
+"""
+import joblib
+import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+from pathlib import Path
 
-from sklearn.preprocessing import LabelEncoder, StandardScaler
+
+import matplotlib.pyplot as plt
 from sklearn.metrics import (
     accuracy_score,
+    precision_score,
+    recall_score,
+    f1_score,
     classification_report,
     confusion_matrix
 )
 
+# ==========================================================
+# PROJECT PATHS
+# ==========================================================
 
+BASE_DIR = Path(__file__).resolve().parent.parent
 
+MODEL_DIR = BASE_DIR / "models"
 
-# ============================================================
-# PATH CONFIGURATION
-# ============================================================
+RESULT_DIR = BASE_DIR / "results"
+RESULT_DIR.mkdir(exist_ok=True)
 
-DATASET_PATH = "../data/processed/CICIDS2017_FeatureSelected.csv"
+REPORT_DIR = BASE_DIR / "reports"
+REPORT_DIR.mkdir(exist_ok=True)
 
-MODEL_PATH = "../models/random_forest.pkl"
+# ==========================================================
+# LOAD FILES
+# ==========================================================
 
-OUTPUT_CM = "../results/random_forest_confusion_matrix.png"
+print("=" * 60)
+print("Loading Saved Files...")
+print("=" * 60)
 
-OUTPUT_REPORT = "../results/classification_report.png"
+best_model = joblib.load(
+    MODEL_DIR / "best_model.pkl"
+)
 
+label_encoder = joblib.load(
+    MODEL_DIR / "label_encoder.pkl"
+)
 
+scaler = joblib.load(
+    MODEL_DIR / "scaler.pkl"
+)
 
+X_test = joblib.load(
+    MODEL_DIR / "X_test.pkl"
+)
 
-# ============================================================
-# LOAD DATASET
-# ============================================================
+y_test = joblib.load(
+    MODEL_DIR / "y_test.pkl"
+)
 
-print("="*60)
-print("Loading Dataset...")
-print("="*60)
+print("Best Model Loaded Successfully.")
+print("Label Encoder Loaded Successfully.")
+print("Scaler Loaded Successfully.")
+print("Test Dataset Loaded Successfully.")
 
-
-df = pd.read_csv(DATASET_PATH)
-
-
-print("Initial Shape :", df.shape)
-
-
-
-# ============================================================
-# CLEAN DATA
-# ============================================================
-
-print("\nCleaning Dataset...")
-
-
-df.replace([np.inf,-np.inf],np.nan,inplace=True)
-
-df.dropna(inplace=True)
-
-
-
-print("After Cleaning :",df.shape)
-
-
-
-# ============================================================
-# SPLIT FEATURES AND LABEL
-# ============================================================
-
-
-X = df.drop("Label",axis=1)
-
-y = df["Label"]
-
-
-
-print("\nFeatures :",X.shape[1])
-print("Samples :",X.shape[0])
-
-
-
-# ============================================================
-# ENCODE LABELS
-# ============================================================
-
-
-print("\nEncoding Labels...")
-
-
-encoder = LabelEncoder()
-
-y_encoded = encoder.fit_transform(y)
-
-
-
-classes = encoder.classes_
-
-
-
-# ============================================================
-# SCALE FEATURES
-# ============================================================
-
-
-print("\nScaling Features...")
-
-
-scaler = StandardScaler()
-
-X_scaled = scaler.fit_transform(X)
-
-
-
-print("\nDataset Ready For Evaluation.")
-
-
-
-
-
-# ============================================================
-# LOAD MODEL
-# ============================================================
-
-
-print("="*60)
-print("Loading Random Forest Model...")
-print("="*60)
-
-
-
-model = joblib.load(MODEL_PATH)
-
-
-
-# ============================================================
-# PREDICTION
-# ============================================================
-
+# ==========================================================
+# MODEL PREDICTION
+# ==========================================================
 
 print("\nMaking Predictions...")
 
+predictions = best_model.predict(X_test)
 
-prediction = model.predict(X_scaled)
-
-
-
-# ============================================================
-# ACCURACY
-# ============================================================
-
+# ==========================================================
+# MODEL METRICS
+# ==========================================================
 
 accuracy = accuracy_score(
-    y_encoded,
-    prediction
+    y_test,
+    predictions
 )
 
-
-print("\nAccuracy:")
-print(round(accuracy,5))
-
-
-
-# ============================================================
-# CLASSIFICATION REPORT
-# ============================================================
-
-
-report = classification_report(
-    y_encoded,
-    prediction,
-    target_names=classes,
+precision = precision_score(
+    y_test,
+    predictions,
+    average="weighted",
     zero_division=0
 )
 
+recall = recall_score(
+    y_test,
+    predictions,
+    average="weighted",
+    zero_division=0
+)
 
-print("\nClassification Report")
+f1 = f1_score(
+    y_test,
+    predictions,
+    average="weighted",
+    zero_division=0
+)
+
+print("\n" + "=" * 60)
+print("MODEL PERFORMANCE")
+print("=" * 60)
+
+print(f"Accuracy  : {accuracy:.4f}")
+print(f"Precision : {precision:.4f}")
+print(f"Recall    : {recall:.4f}")
+print(f"F1 Score  : {f1:.4f}")
+
+
+# ==========================================================
+# CLASSIFICATION REPORT
+# ==========================================================
+
+print("\nGenerating Classification Report...")
+
+labels = list(range(len(label_encoder.classes_)))
+
+labels = list(range(len(label_encoder.classes_)))
+
+report = classification_report(
+    y_test,
+    predictions,
+    labels=labels,
+    target_names=label_encoder.classes_,
+    zero_division=0
+)
+
 print(report)
 
-
+report_path = (
+    REPORT_DIR /
+    "classification_report.txt"
+)
 
 with open(
-    OUTPUT_REPORT,
+    report_path,
     "w",
     encoding="utf-8"
 ) as file:
+
     file.write(report)
 
+print("\nClassification Report Saved Successfully.")
+print(report_path)
 
 
-# ============================================================
+# ==========================================================
 # CONFUSION MATRIX
-# ============================================================
+# ==========================================================
 
+labels = list(range(len(label_encoder.classes_)))
 
 cm = confusion_matrix(
-    y_encoded,
-    prediction
+    y_test,
+    predictions,
+    labels=labels
 )
 
-
-
-# Normalize safely
-
-cm_percentage = np.zeros_like(cm,dtype=float)
-
-
-for i in range(len(cm)):
-
-    row_sum = cm[i].sum()
-
-    if row_sum !=0:
-        cm_percentage[i] = cm[i] / row_sum * 100
-
-
-
-# ============================================================
-# SHORT LABELS
-# ============================================================
-
-
-short_labels=[]
-
-
-for label in classes:
-
-    label = (
-        label
-        .replace("Web Attack � ","Web ")
-        .replace("DoS ","")
-        .replace("-"," ")
-    )
-
-    short_labels.append(label)
-
-
-
-# ============================================================
+# ==========================================================
 # PLOT CONFUSION MATRIX
-# ============================================================
+# ==========================================================
 
+print("\nGenerating Confusion Matrix...")
 
-plt.figure(
-    figsize=(16,12)
+labels = list(range(len(label_encoder.classes_)))
+
+cm = confusion_matrix(
+    y_test,
+    predictions,
+    labels=labels
 )
 
+# Normalize row-wise (%)
+cm_percentage = cm.astype(float)
 
+for i in range(len(cm_percentage)):
+    row_sum = cm_percentage[i].sum()
+    if row_sum > 0:
+        cm_percentage[i] = (cm_percentage[i] / row_sum) * 100
+
+plt.figure(figsize=(16, 12))
 
 sns.heatmap(
     cm_percentage,
     annot=True,
     fmt=".1f",
     cmap="Blues",
-    xticklabels=short_labels,
-    yticklabels=short_labels,
+    xticklabels=label_encoder.classes_,
+    yticklabels=label_encoder.classes_,
     linewidths=0.5,
     cbar_kws={
-        "label":"Percentage (%)"
+        "label": "Percentage (%)"
     }
 )
 
-
-
 plt.title(
-    "Random Forest Confusion Matrix (%)",
-    fontsize=18,
-    pad=20
+    "Confusion Matrix (%)",
+    fontsize=18
 )
-
 
 plt.xlabel(
     "Predicted Label",
-    fontsize=14
+    fontsize=12
 )
-
 
 plt.ylabel(
     "Actual Label",
-    fontsize=14
+    fontsize=12
 )
-
-
 
 plt.xticks(
     rotation=45,
-    ha="right",
-    fontsize=10
+    ha="right"
 )
-
 
 plt.yticks(
-    rotation=0,
-    fontsize=10
+    rotation=0
 )
-
-
 
 plt.tight_layout()
 
-
+cm_path = RESULT_DIR / "confusion_matrix.png"
 
 plt.savefig(
-    OUTPUT_CM,
+    cm_path,
     dpi=300,
     bbox_inches="tight"
 )
 
-
-
-plt.show()
-
-
+plt.close()
 
 print("\nConfusion Matrix Saved Successfully.")
+print(cm_path)
 
-print("="*60)
-print("Evaluation Completed")
-print("="*60)
+print("\nConfusion Matrix Saved Successfully.")
+print(cm_path)
+
+
+# ==========================================================
+# EVALUATION SUMMARY
+# ==========================================================
+
+print("\n" + "=" * 60)
+print("MODEL EVALUATION COMPLETED SUCCESSFULLY")
+print("=" * 60)
+
+print(f"Accuracy  : {accuracy:.4f}")
+print(f"Precision : {precision:.4f}")
+print(f"Recall    : {recall:.4f}")
+print(f"F1 Score  : {f1:.4f}")
+
+print("\nGenerated Files")
+print("-" * 60)
+print(report_path)
+print(cm_path)
+
+print("\nBest Model Evaluated Successfully.")

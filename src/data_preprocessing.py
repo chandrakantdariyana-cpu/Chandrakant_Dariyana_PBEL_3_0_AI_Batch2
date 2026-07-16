@@ -4,422 +4,255 @@ Project : AI-Based Cyber Threat Detection Framework
 File    : data_preprocessing.py
 
 Author  : Chandrakant
-Purpose : Data preprocessing and ML model training.
+
+Purpose :
+Data preprocessing pipeline for Machine Learning models.
 ===========================================================
 """
 
-
 from pathlib import Path
-import pandas as pd
 import joblib
-
+import numpy as np
+import pandas as pd
 
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder, StandardScaler
-
-from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import RandomForestClassifier
-
-from sklearn.metrics import accuracy_score
-
+from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import StandardScaler
 
 
 # ==========================================================
-# Project Paths
+# PROJECT PATHS
 # ==========================================================
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 DATA_PATH = (
-    BASE_DIR /
-    "data" /
-    "processed" /
-    "CICIDS2017_FeatureSelected.csv"
+    BASE_DIR
+    / "data"
+    / "processed"
+    / "CICIDS2017_FeatureSelected.csv"
 )
 
-
 MODEL_DIR = BASE_DIR / "models"
-
 MODEL_DIR.mkdir(exist_ok=True)
 
 
+# ==========================================================
+# LOAD DATASET
+# ==========================================================
+
+def load_dataset():
+
+    print("=" * 60)
+    print("Loading Feature Selected Dataset...")
+    print("=" * 60)
+
+    df = pd.read_csv(DATA_PATH)
+
+    # Development Sample
+    df = df.sample(
+        n=200000,
+        random_state=42
+    )
+
+    print(f"Dataset Shape : {df.shape}")
+
+    return df
+
 
 # ==========================================================
-# Data Preparation
+# CLEAN DATASET
+# ==========================================================
+
+def clean_dataset(df):
+
+    print("\nCleaning Dataset...")
+
+    # Remove extra spaces
+    df.columns = df.columns.str.strip()
+
+    # Remove duplicate rows
+    duplicate_rows = df.duplicated().sum()
+
+    df.drop_duplicates(inplace=True)
+
+    # Replace Infinite Values
+    inf_count = np.isinf(
+        df.select_dtypes(include=[np.number])
+    ).sum().sum()
+
+    df.replace(
+        [np.inf, -np.inf],
+        np.nan,
+        inplace=True
+    )
+
+    # Missing Values
+    missing_values = df.isna().sum().sum()
+
+    df.dropna(inplace=True)
+
+    print(f"Duplicate Rows Removed : {duplicate_rows}")
+    print(f"Infinite Values Found  : {inf_count}")
+    print(f"Missing Values Removed : {missing_values}")
+    print(f"Final Shape            : {df.shape}")
+
+    return df
+
+
+# ==========================================================
+# SPLIT FEATURES & LABEL
+# ==========================================================
+
+def split_features_labels(df):
+
+    X = df.drop(
+        columns=["Label"]
+    )
+
+    y = df["Label"]
+
+    print(f"\nFeatures : {X.shape[1]}")
+    print(f"Samples  : {X.shape[0]}")
+
+    return X, y
+
+
+# ==========================================================
+# LABEL ENCODING
+# ==========================================================
+
+def encode_labels(y):
+
+    print("\nEncoding Labels...")
+
+    encoder = LabelEncoder()
+
+    y_encoded = encoder.fit_transform(y)
+
+    joblib.dump(
+        encoder,
+        MODEL_DIR / "label_encoder.pkl"
+    )
+
+    return y_encoded, encoder
+
+# ==========================================================
+# TRAIN TEST SPLIT
+# ==========================================================
+
+def split_dataset(X, y):
+
+    print("\nSplitting Dataset...")
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X,
+        y,
+        test_size=0.20,
+        random_state=42,
+        stratify=y,
+        shuffle=True
+    )
+
+    print(f"Training Samples : {X_train.shape[0]}")
+    print(f"Testing Samples  : {X_test.shape[0]}")
+
+    return X_train, X_test, y_train, y_test
+
+
+# ==========================================================
+# FEATURE SCALING
+# ==========================================================
+
+def scale_features(X_train, X_test):
+
+    print("\nScaling Features...")
+
+    scaler = StandardScaler()
+
+    X_train_scaled = scaler.fit_transform(X_train)
+
+    X_test_scaled = scaler.transform(X_test)
+
+    # Save Scaler
+    joblib.dump(
+        scaler,
+        MODEL_DIR / "scaler.pkl"
+    )
+
+    return X_train_scaled, X_test_scaled, scaler
+
+
+# ==========================================================
+# COMPLETE DATA PREPARATION
 # ==========================================================
 
 def prepare_dataset():
 
-    try:
+    df = load_dataset()
 
-        print("=" * 60)
-        print("Loading Feature Selected Dataset...")
-        print("=" * 60)
+    df = clean_dataset(df)
 
+    X, y = split_features_labels(df)
 
-        # Load Dataset
-        df = pd.read_csv(DATA_PATH)
+    y_encoded, encoder = encode_labels(y)
 
-
-        # Development Sample
-        df = df.sample(
-            n=200000,
-            random_state=42
-        )
-
-
-        print("Initial Shape :", df.shape)
-
-
-
-        # ==================================================
-        # Data Cleaning
-        # ==================================================
-
-        print("\nCleaning Dataset...")
-
-
-        # Remove spaces from column names
-        df.columns = df.columns.str.strip()
-
-
-        # Remove duplicate rows
-        df.drop_duplicates(
-            inplace=True
-        )
-
-
-        # Replace infinity values
-        df.replace(
-            [float("inf"), float("-inf")],
-            pd.NA,
-            inplace=True
-        )
-
-
-        # Remove missing values
-        df.dropna(
-            inplace=True
-        )
-
-
-        print(
-            "After Cleaning :",
-            df.shape
-        )
-
-
-
-        # ==================================================
-        # Feature and Label Separation
-        # ==================================================
-
-        X = df.drop(
-            columns=["Label"]
-        )
-
-
-        y = df["Label"]
-
-
-
-        print(
-            "Features :",
-            X.shape[1]
-        )
-
-        print(
-            "Samples :",
-            X.shape[0]
-        )
-
-
-
-        # ==================================================
-        # Label Encoding
-        # ==================================================
-
-        print("\nEncoding Labels...")
-
-
-        encoder = LabelEncoder()
-
-
-        y = encoder.fit_transform(y)
-
-
-
-        # ==================================================
-        # Train Test Split
-        # ==================================================
-
-        X_train, X_test, y_train, y_test = train_test_split(
-
-            X,
-            y,
-
-            test_size=0.20,
-
-            random_state=42,
-
-            stratify=y
-        )
-
-
-
-        # ==================================================
-        # Feature Scaling
-        # ==================================================
-
-        print("\nScaling Features...")
-
-
-        scaler = StandardScaler()
-
-
-        X_train = scaler.fit_transform(
-            X_train
-        )
-
-
-        X_test = scaler.transform(
-            X_test
-        )
-
-
-
-        print("\nDataset Ready For Training.")
-
-        print("=" * 60)
-
-
-
-        return (
-            X_train,
-            X_test,
-            y_train,
-            y_test,
-            encoder,
-            scaler
-        )
-
-
-    except Exception as e:
-
-        print(
-            "Error :",
-            e
-        )
-
-
-
-
-
-# ==========================================================
-# Logistic Regression
-# ==========================================================
-
-def train_logistic_regression(
-        X_train,
-        X_test,
-        y_train,
-        y_test):
-
-
-    print("\nTraining Logistic Regression...")
-
-
-    model = LogisticRegression(
-
-        max_iter=1000,
-
-        random_state=42,
-
-        n_jobs=-1
+    X_train, X_test, y_train, y_test = split_dataset(
+        X,
+        y_encoded
     )
 
-
-    model.fit(
+    X_train, X_test, scaler = scale_features(
         X_train,
-        y_train
-    )
-
-
-
-    predictions = model.predict(
         X_test
     )
 
+    print("\nDataset Ready For Training.")
+    print("=" * 60)
 
-
-    accuracy = accuracy_score(
-        y_test,
-        predictions
-    )
-
-
-    print(
-        f"Accuracy : {accuracy:.4f}"
-    )
-
-
-    return model
-
-
-
-
-
-# ==========================================================
-# Random Forest
-# ==========================================================
-
-def train_random_forest(
-        X_train,
-        X_test,
-        y_train,
-        y_test):
-
-
-    print("\nTraining Random Forest...")
-
-
-    model = RandomForestClassifier(
-
-        n_estimators=100,
-
-        random_state=42,
-
-        n_jobs=-1
-    )
-
-
-    model.fit(
-        X_train,
-        y_train
-    )
-
-
-    predictions = model.predict(
-        X_test
-    )
-
-
-    accuracy = accuracy_score(
-        y_test,
-        predictions
-    )
-
-
-    print(
-        f"Accuracy : {accuracy:.4f}"
-    )
-
-
-    return model
-
-
-
-
-
-# ==========================================================
-# Save Model
-# ==========================================================
-
-def save_model(
-        model,
-        encoder,
-        scaler,
-        model_name):
-
-
-    joblib.dump(
-
-        model,
-
-        MODEL_DIR /
-        f"{model_name}.pkl"
-
-    )
-
-
-    joblib.dump(
-
-        encoder,
-
-        MODEL_DIR /
-        "label_encoder.pkl"
-
-    )
-
-
-    joblib.dump(
-
-        scaler,
-
-        MODEL_DIR /
-        "scaler.pkl"
-
-    )
-
-
-    print("\nModel Saved Successfully.")
-
-    print(
-        MODEL_DIR /
-        f"{model_name}.pkl"
-    )
-
-
-
-
-
-# ==========================================================
-# Main
-# ==========================================================
-
-
-if __name__ == "__main__":
-
-
-    (
+    return (
         X_train,
         X_test,
         y_train,
         y_test,
         encoder,
         scaler
-
-    ) = prepare_dataset()
-
-
-
-    # Train Logistic Regression
-
-    model = train_logistic_regression(
-
-        X_train,
-
-        X_test,
-
-        y_train,
-
-        y_test
-
     )
 
+# ==========================================================
+# MAIN (TESTING)
+# ==========================================================
 
+if __name__ == "__main__":
 
-    # Save Model
+    try:
 
-    save_model(
+        (
+            X_train,
+            X_test,
+            y_train,
+            y_test,
+            encoder,
+            scaler
 
-        model,
+        ) = prepare_dataset()
 
-        encoder,
+        print("\n" + "=" * 60)
+        print("DATA PREPROCESSING COMPLETED SUCCESSFULLY")
+        print("=" * 60)
 
-        scaler,
+        print(f"Training Data Shape : {X_train.shape}")
+        print(f"Testing Data Shape  : {X_test.shape}")
 
-        "logistic_regression"
+        print(f"Training Labels : {len(y_train)}")
+        print(f"Testing Labels  : {len(y_test)}")
 
-    )
+        print("\nSaved Files")
+        print("-" * 60)
+        print(MODEL_DIR / "label_encoder.pkl")
+        print(MODEL_DIR / "scaler.pkl")
+
+    except Exception as e:
+
+        print("\nError During Data Preprocessing")
+        print(e)

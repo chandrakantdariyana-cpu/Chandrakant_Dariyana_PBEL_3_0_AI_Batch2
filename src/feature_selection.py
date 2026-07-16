@@ -60,9 +60,9 @@ def feature_selection():
 
         print(f"\nOriginal Features : {X.shape[1]}")
 
-        # --------------------------------------------------
+        
         # Variance Threshold
-        # --------------------------------------------------
+        
 
         selector = VarianceThreshold(threshold=0)
 
@@ -74,10 +74,11 @@ def feature_selection():
 
         print(f"Removed Features : {removed_features}")
         print(f"Remaining Features : {len(selected_columns)}")
+        print(f"Removed Features: {X.drop(columns=selected_columns).columns }")
 
-        # --------------------------------------------------
+        
         # Create Final Dataset
-        # --------------------------------------------------
+        
 
         selected_df = pd.DataFrame(
             X_selected,
@@ -86,9 +87,9 @@ def feature_selection():
 
         selected_df["Label"] = y.values
 
-        # --------------------------------------------------
+        
         # Save Dataset
-        # --------------------------------------------------
+        
 
         selected_df.to_csv(OUTPUT_PATH, index=False)
 
