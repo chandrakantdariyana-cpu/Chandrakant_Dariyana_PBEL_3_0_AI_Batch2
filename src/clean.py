@@ -12,6 +12,7 @@ Purpose : Clean the merged CICIDS2017 dataset by
 from pathlib import Path
 import pandas as pd
 import numpy as np
+from logger import logger
 
 
 # ==========================================================
@@ -35,59 +36,64 @@ def clean_dataset():
     and save the cleaned dataset.
     """
 
+    logger.info("Dataset cleaning process started.")
+
     try:
 
         print("=" * 60)
         print("Loading dataset...")
 
+        logger.info(f"Loading dataset from: {DATA_PATH}")
+
         df = pd.read_csv(DATA_PATH)
+
+        logger.info("Dataset loaded successfully.")
+        logger.debug(f"Original dataset shape: {df.shape}")
 
         print("Dataset loaded successfully.")
         print(f"Original Shape : {df.shape}")
 
-        # --------------------------------------------------
-        # Remove Duplicate Rows
-        # --------------------------------------------------
-
         duplicate_rows = df.duplicated().sum()
+
+        logger.info(f"Duplicate rows found: {duplicate_rows}")
 
         df = df.drop_duplicates()
 
-        print(f"Duplicate Rows Removed : {duplicate_rows}")
+        logger.debug(f"Shape after removing duplicates: {df.shape}")
 
-        # --------------------------------------------------
-        # Replace Infinite Values
-        # --------------------------------------------------
+        print(f"Duplicate Rows Removed : {duplicate_rows}")
 
         numeric_df = df.select_dtypes(include=[np.number])
 
+        logger.info("Numeric columns selected for infinite value checking.")
+
         inf_count = np.isinf(numeric_df).sum().sum()
+
+        logger.info(f"Infinite values found: {inf_count}")
 
         df.replace([np.inf, -np.inf], np.nan, inplace=True)
 
-        print(f"Infinite Values Found : {inf_count}")
+        logger.info("Infinite values replaced with NaN.")
 
-        # --------------------------------------------------
-        # Remove Missing Values
-        # --------------------------------------------------
+        print(f"Infinite Values Found : {inf_count}")
 
         missing_values = df.isnull().sum().sum()
 
+        logger.info(f"Missing values found: {missing_values}")
+
         df.dropna(inplace=True)
+
+        logger.debug(f"Shape after removing missing values: {df.shape}")
 
         print(f"Missing Values Removed : {missing_values}")
 
-        # --------------------------------------------------
-        # Final Dataset Information
-        # --------------------------------------------------
-
         print(f"Final Shape : {df.shape}")
 
-        # --------------------------------------------------
-        # Save Clean Dataset
-        # --------------------------------------------------
+        logger.info(f"Final cleaned dataset shape: {df.shape}")
 
         df.to_csv(OUTPUT_PATH, index=False)
+
+        logger.info(f"Clean dataset saved successfully at: {OUTPUT_PATH}")
 
         print()
         print("Dataset cleaned successfully.")
@@ -95,12 +101,18 @@ def clean_dataset():
 
         print("=" * 60)
 
+        logger.info("Dataset cleaning process completed successfully.")
+
     except FileNotFoundError:
+
+        logger.error(f"Dataset file not found at: {DATA_PATH}")
 
         print("ERROR : Dataset file not found.")
         print(f"Expected Location : {DATA_PATH}")
 
     except Exception as error:
+
+        logger.exception(f"Unexpected error occurred: {error}")
 
         print(f"Unexpected Error : {error}")
 
@@ -110,4 +122,5 @@ def clean_dataset():
 # ==========================================================
 
 if __name__ == "__main__":
+    logger.info("Executing clean.py")
     clean_dataset()

@@ -9,12 +9,12 @@ Purpose :
 Evaluate the best trained Machine Learning model.
 ===========================================================
 """
+
 import joblib
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from pathlib import Path
-
 
 import matplotlib.pyplot as plt
 from sklearn.metrics import (
@@ -25,6 +25,8 @@ from sklearn.metrics import (
     classification_report,
     confusion_matrix
 )
+
+from logger import logger
 
 # ==========================================================
 # PROJECT PATHS
@@ -44,228 +46,273 @@ REPORT_DIR.mkdir(exist_ok=True)
 # LOAD FILES
 # ==========================================================
 
-print("=" * 60)
-print("Loading Saved Files...")
-print("=" * 60)
+def main():
+    logger.info("Model evaluation started.")
 
-best_model = joblib.load(
-    MODEL_DIR / "best_model.pkl"
-)
+    print("=" * 60)
+    print("Loading Saved Files...")
+    print("=" * 60)
 
-label_encoder = joblib.load(
-    MODEL_DIR / "label_encoder.pkl"
-)
+    logger.info("Loading best model.")
+    best_model = joblib.load(
+        MODEL_DIR / "best_model.pkl"
+    )
 
-scaler = joblib.load(
-    MODEL_DIR / "scaler.pkl"
-)
+    logger.info("Loading label encoder.")
+    label_encoder = joblib.load(
+        MODEL_DIR / "label_encoder.pkl"
+    )
 
-X_test = joblib.load(
-    MODEL_DIR / "X_test.pkl"
-)
+    logger.info("Loading scaler.")
+    scaler = joblib.load(
+        MODEL_DIR / "scaler.pkl"
+    )
 
-y_test = joblib.load(
-    MODEL_DIR / "y_test.pkl"
-)
+    logger.info("Loading X_test.")
+    X_test = joblib.load(
+        MODEL_DIR / "X_test.pkl"
+    )
 
-print("Best Model Loaded Successfully.")
-print("Label Encoder Loaded Successfully.")
-print("Scaler Loaded Successfully.")
-print("Test Dataset Loaded Successfully.")
+    logger.info("Loading y_test.")
+    y_test = joblib.load(
+        MODEL_DIR / "y_test.pkl"
+    )
 
-# ==========================================================
-# MODEL PREDICTION
-# ==========================================================
+    logger.info("All required files loaded successfully.")
+    logger.debug(f"X_test shape: {X_test.shape}")
+    logger.debug(f"y_test shape: {y_test.shape}")
 
-print("\nMaking Predictions...")
+    print("Best Model Loaded Successfully.")
+    print("Label Encoder Loaded Successfully.")
+    print("Scaler Loaded Successfully.")
+    print("Test Dataset Loaded Successfully.")
 
-predictions = best_model.predict(X_test)
+    # ==========================================================
+    # MODEL PREDICTION
+    # ==========================================================
 
-# ==========================================================
-# MODEL METRICS
-# ==========================================================
+    print("\nMaking Predictions...")
 
-accuracy = accuracy_score(
-    y_test,
-    predictions
-)
+    logger.info("Making predictions using best model.")
 
-precision = precision_score(
-    y_test,
-    predictions,
-    average="weighted",
-    zero_division=0
-)
+    predictions = best_model.predict(X_test)
 
-recall = recall_score(
-    y_test,
-    predictions,
-    average="weighted",
-    zero_division=0
-)
+    logger.info("Prediction completed.")
+    logger.debug(f"Total predictions: {len(predictions)}")
 
-f1 = f1_score(
-    y_test,
-    predictions,
-    average="weighted",
-    zero_division=0
-)
+    # ==========================================================
+    # MODEL METRICS
+    # ==========================================================
 
-print("\n" + "=" * 60)
-print("MODEL PERFORMANCE")
-print("=" * 60)
+    logger.info("Calculating evaluation metrics.")
 
-print(f"Accuracy  : {accuracy:.4f}")
-print(f"Precision : {precision:.4f}")
-print(f"Recall    : {recall:.4f}")
-print(f"F1 Score  : {f1:.4f}")
+    accuracy = accuracy_score(
+        y_test,
+        predictions
+    )
 
+    precision = precision_score(
+        y_test,
+        predictions,
+        average="weighted",
+        zero_division=0
+    )
 
-# ==========================================================
-# CLASSIFICATION REPORT
-# ==========================================================
+    recall = recall_score(
+        y_test,
+        predictions,
+        average="weighted",
+        zero_division=0
+    )
 
-print("\nGenerating Classification Report...")
+    f1 = f1_score(
+        y_test,
+        predictions,
+        average="weighted",
+        zero_division=0
+    )
 
-labels = list(range(len(label_encoder.classes_)))
+    logger.info(
+        f"Metrics -> Accuracy={accuracy:.4f}, "
+        f"Precision={precision:.4f}, "
+        f"Recall={recall:.4f}, "
+        f"F1={f1:.4f}"
+    )
 
-labels = list(range(len(label_encoder.classes_)))
+    print("\n" + "=" * 60)
+    print("MODEL PERFORMANCE")
+    print("=" * 60)
 
-report = classification_report(
-    y_test,
-    predictions,
-    labels=labels,
-    target_names=label_encoder.classes_,
-    zero_division=0
-)
+    print(f"Accuracy  : {accuracy:.4f}")
+    print(f"Precision : {precision:.4f}")
+    print(f"Recall    : {recall:.4f}")
+    print(f"F1 Score  : {f1:.4f}")
 
-print(report)
+    # ==========================================================
+    # CLASSIFICATION REPORT
+    # ==========================================================
 
-report_path = (
-    REPORT_DIR /
-    "classification_report.txt"
-)
+    print("\nGenerating Classification Report...")
 
-with open(
-    report_path,
-    "w",
-    encoding="utf-8"
-) as file:
+    logger.info("Generating classification report.")
 
-    file.write(report)
+    labels = list(range(len(label_encoder.classes_)))
 
-print("\nClassification Report Saved Successfully.")
-print(report_path)
+    labels = list(range(len(label_encoder.classes_)))
 
+    report = classification_report(
+        y_test,
+        predictions,
+        labels=labels,
+        target_names=label_encoder.classes_,
+        zero_division=0
+    )
 
-# ==========================================================
-# CONFUSION MATRIX
-# ==========================================================
+    logger.debug(f"\n{report}")
 
-labels = list(range(len(label_encoder.classes_)))
+    print(report)
 
-cm = confusion_matrix(
-    y_test,
-    predictions,
-    labels=labels
-)
+    report_path = (
+            REPORT_DIR /
+            "classification_report.txt"
+    )
 
-# ==========================================================
-# PLOT CONFUSION MATRIX
-# ==========================================================
+    with open(
+            report_path,
+            "w",
+            encoding="utf-8"
+    ) as file:
 
-print("\nGenerating Confusion Matrix...")
+        file.write(report)
 
-labels = list(range(len(label_encoder.classes_)))
+    logger.info(f"Classification report saved at: {report_path}")
 
-cm = confusion_matrix(
-    y_test,
-    predictions,
-    labels=labels
-)
+    print("\nClassification Report Saved Successfully.")
+    print(report_path)
 
-# Normalize row-wise (%)
-cm_percentage = cm.astype(float)
+    # ==========================================================
+    # CONFUSION MATRIX
+    # ==========================================================
 
-for i in range(len(cm_percentage)):
-    row_sum = cm_percentage[i].sum()
-    if row_sum > 0:
-        cm_percentage[i] = (cm_percentage[i] / row_sum) * 100
+    logger.info("Generating confusion matrix.")
 
-plt.figure(figsize=(16, 12))
+    labels = list(range(len(label_encoder.classes_)))
 
-sns.heatmap(
-    cm_percentage,
-    annot=True,
-    fmt=".1f",
-    cmap="Blues",
-    xticklabels=label_encoder.classes_,
-    yticklabels=label_encoder.classes_,
-    linewidths=0.5,
-    cbar_kws={
-        "label": "Percentage (%)"
-    }
-)
+    cm = confusion_matrix(
+        y_test,
+        predictions,
+        labels=labels
+    )
 
-plt.title(
-    "Confusion Matrix (%)",
-    fontsize=18
-)
+    logger.debug(f"Confusion matrix shape: {cm.shape}")
 
-plt.xlabel(
-    "Predicted Label",
-    fontsize=12
-)
+    # ==========================================================
+    # PLOT CONFUSION MATRIX
+    # ==========================================================
 
-plt.ylabel(
-    "Actual Label",
-    fontsize=12
-)
+    print("\nGenerating Confusion Matrix...")
 
-plt.xticks(
-    rotation=45,
-    ha="right"
-)
+    labels = list(range(len(label_encoder.classes_)))
 
-plt.yticks(
-    rotation=0
-)
+    cm = confusion_matrix(
+        y_test,
+        predictions,
+        labels=labels
+    )
 
-plt.tight_layout()
+    cm_percentage = cm.astype(float)
 
-cm_path = RESULT_DIR / "confusion_matrix.png"
+    logger.info("Normalizing confusion matrix.")
 
-plt.savefig(
-    cm_path,
-    dpi=300,
-    bbox_inches="tight"
-)
+    for i in range(len(cm_percentage)):
+        row_sum = cm_percentage[i].sum()
+        if row_sum > 0:
+            cm_percentage[i] = (cm_percentage[i] / row_sum) * 100
 
-plt.close()
+    plt.figure(figsize=(16, 12))
 
-print("\nConfusion Matrix Saved Successfully.")
-print(cm_path)
+    logger.info("Creating confusion matrix heatmap.")
 
-print("\nConfusion Matrix Saved Successfully.")
-print(cm_path)
+    sns.heatmap(
+        cm_percentage,
+        annot=True,
+        fmt=".1f",
+        cmap="Blues",
+        xticklabels=label_encoder.classes_,
+        yticklabels=label_encoder.classes_,
+        linewidths=0.5,
+        cbar_kws={
+            "label": "Percentage (%)"
+        }
+    )
 
+    plt.title(
+        "Confusion Matrix (%)",
+        fontsize=18
+    )
 
-# ==========================================================
-# EVALUATION SUMMARY
-# ==========================================================
+    plt.xlabel(
+        "Predicted Label",
+        fontsize=12
+    )
 
-print("\n" + "=" * 60)
-print("MODEL EVALUATION COMPLETED SUCCESSFULLY")
-print("=" * 60)
+    plt.ylabel(
+        "Actual Label",
+        fontsize=12
+    )
 
-print(f"Accuracy  : {accuracy:.4f}")
-print(f"Precision : {precision:.4f}")
-print(f"Recall    : {recall:.4f}")
-print(f"F1 Score  : {f1:.4f}")
+    plt.xticks(
+        rotation=45,
+        ha="right"
+    )
 
-print("\nGenerated Files")
-print("-" * 60)
-print(report_path)
-print(cm_path)
+    plt.yticks(
+        rotation=0
+    )
 
-print("\nBest Model Evaluated Successfully.")
+    plt.tight_layout()
+
+    cm_path = RESULT_DIR / "confusion_matrix.png"
+
+    plt.savefig(
+        cm_path,
+        dpi=300,
+        bbox_inches="tight"
+    )
+
+    logger.info(f"Confusion matrix saved at: {cm_path}")
+
+    plt.close()
+
+    logger.info("Confusion matrix figure closed.")
+
+    print("\nConfusion Matrix Saved Successfully.")
+    print(cm_path)
+
+    print("\nConfusion Matrix Saved Successfully.")
+    print(cm_path)
+
+    # ==========================================================
+    # EVALUATION SUMMARY
+    # ==========================================================
+
+    logger.info("Model evaluation completed successfully.")
+
+    print("\n" + "=" * 60)
+    print("MODEL EVALUATION COMPLETED SUCCESSFULLY")
+    print("=" * 60)
+
+    print(f"Accuracy  : {accuracy:.4f}")
+    print(f"Precision : {precision:.4f}")
+    print(f"Recall    : {recall:.4f}")
+    print(f"F1 Score  : {f1:.4f}")
+
+    print("\nGenerated Files")
+    print("-" * 60)
+    print(report_path)
+    print(cm_path)
+
+    print("\nBest Model Evaluated Successfully.")
+
+if __name__ == '__main__':
+    main()

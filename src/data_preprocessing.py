@@ -19,6 +19,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import StandardScaler
 
+from logger import logger
+
 
 # ==========================================================
 # PROJECT PATHS
@@ -43,17 +45,26 @@ MODEL_DIR.mkdir(exist_ok=True)
 
 def load_dataset():
 
+    logger.info("Loading feature selected dataset started.")
+
     print("=" * 60)
     print("Loading Feature Selected Dataset...")
     print("=" * 60)
 
+    logger.info(f"Dataset path: {DATA_PATH}")
+
     df = pd.read_csv(DATA_PATH)
 
-    # Development Sample
+    logger.info("Dataset loaded successfully.")
+    logger.debug(f"Original dataset shape: {df.shape}")
+
     df = df.sample(
         n=200000,
         random_state=42
     )
+
+    logger.info("Development sample selected.")
+    logger.debug(f"Sampled dataset shape: {df.shape}")
 
     print(f"Dataset Shape : {df.shape}")
 
@@ -66,20 +77,27 @@ def load_dataset():
 
 def clean_dataset(df):
 
+    logger.info("Dataset cleaning started.")
+
     print("\nCleaning Dataset...")
 
-    # Remove extra spaces
     df.columns = df.columns.str.strip()
 
-    # Remove duplicate rows
+    logger.info("Column names stripped.")
+
     duplicate_rows = df.duplicated().sum()
+
+    logger.info(f"Duplicate rows found: {duplicate_rows}")
 
     df.drop_duplicates(inplace=True)
 
-    # Replace Infinite Values
+    logger.debug(f"Shape after duplicate removal: {df.shape}")
+
     inf_count = np.isinf(
         df.select_dtypes(include=[np.number])
     ).sum().sum()
+
+    logger.info(f"Infinite values found: {inf_count}")
 
     df.replace(
         [np.inf, -np.inf],
@@ -87,15 +105,22 @@ def clean_dataset(df):
         inplace=True
     )
 
-    # Missing Values
+    logger.info("Infinite values replaced with NaN.")
+
     missing_values = df.isna().sum().sum()
 
+    logger.info(f"Missing values found: {missing_values}")
+
     df.dropna(inplace=True)
+
+    logger.debug(f"Shape after removing missing values: {df.shape}")
 
     print(f"Duplicate Rows Removed : {duplicate_rows}")
     print(f"Infinite Values Found  : {inf_count}")
     print(f"Missing Values Removed : {missing_values}")
     print(f"Final Shape            : {df.shape}")
+
+    logger.info("Dataset cleaning completed.")
 
     return df
 
@@ -106,11 +131,16 @@ def clean_dataset(df):
 
 def split_features_labels(df):
 
+    logger.info("Splitting features and labels.")
+
     X = df.drop(
         columns=["Label"]
     )
 
     y = df["Label"]
+
+    logger.debug(f"Feature shape: {X.shape}")
+    logger.debug(f"Label shape: {y.shape}")
 
     print(f"\nFeatures : {X.shape[1]}")
     print(f"Samples  : {X.shape[0]}")
@@ -124,24 +154,34 @@ def split_features_labels(df):
 
 def encode_labels(y):
 
+    logger.info("Label encoding started.")
+
     print("\nEncoding Labels...")
 
     encoder = LabelEncoder()
 
     y_encoded = encoder.fit_transform(y)
 
+    logger.info(f"Total classes encoded: {len(encoder.classes_)}")
+    logger.debug(f"Classes: {list(encoder.classes_)}")
+
     joblib.dump(
         encoder,
         MODEL_DIR / "label_encoder.pkl"
     )
 
+    logger.info(f"Label encoder saved at: {MODEL_DIR / 'label_encoder.pkl'}")
+
     return y_encoded, encoder
+
 
 # ==========================================================
 # TRAIN TEST SPLIT
 # ==========================================================
 
 def split_dataset(X, y):
+
+    logger.info("Splitting dataset into training and testing.")
 
     print("\nSplitting Dataset...")
 
@@ -153,6 +193,11 @@ def split_dataset(X, y):
         stratify=y,
         shuffle=True
     )
+
+    logger.debug(f"Training feature shape: {X_train.shape}")
+    logger.debug(f"Testing feature shape: {X_test.shape}")
+    logger.debug(f"Training label count: {len(y_train)}")
+    logger.debug(f"Testing label count: {len(y_test)}")
 
     print(f"Training Samples : {X_train.shape[0]}")
     print(f"Testing Samples  : {X_test.shape[0]}")
@@ -166,19 +211,26 @@ def split_dataset(X, y):
 
 def scale_features(X_train, X_test):
 
+    logger.info("Feature scaling started.")
+
     print("\nScaling Features...")
 
     scaler = StandardScaler()
 
     X_train_scaled = scaler.fit_transform(X_train)
 
+    logger.info("Training features scaled.")
+
     X_test_scaled = scaler.transform(X_test)
 
-    # Save Scaler
+    logger.info("Testing features scaled.")
+
     joblib.dump(
         scaler,
         MODEL_DIR / "scaler.pkl"
     )
+
+    logger.info(f"Scaler saved at: {MODEL_DIR / 'scaler.pkl'}")
 
     return X_train_scaled, X_test_scaled, scaler
 
@@ -188,6 +240,8 @@ def scale_features(X_train, X_test):
 # ==========================================================
 
 def prepare_dataset():
+
+    logger.info("Complete data preparation pipeline started.")
 
     df = load_dataset()
 
@@ -207,6 +261,8 @@ def prepare_dataset():
         X_test
     )
 
+    logger.info("Dataset preparation completed successfully.")
+
     print("\nDataset Ready For Training.")
     print("=" * 60)
 
@@ -219,11 +275,14 @@ def prepare_dataset():
         scaler
     )
 
+
 # ==========================================================
 # MAIN (TESTING)
 # ==========================================================
 
 if __name__ == "__main__":
+
+    logger.info("Executing data_preprocessing.py")
 
     try:
 
@@ -236,6 +295,8 @@ if __name__ == "__main__":
             scaler
 
         ) = prepare_dataset()
+
+        logger.info("Data preprocessing executed successfully.")
 
         print("\n" + "=" * 60)
         print("DATA PREPROCESSING COMPLETED SUCCESSFULLY")
@@ -253,6 +314,8 @@ if __name__ == "__main__":
         print(MODEL_DIR / "scaler.pkl")
 
     except Exception as e:
+
+        logger.exception(f"Error during data preprocessing: {e}")
 
         print("\nError During Data Preprocessing")
         print(e)

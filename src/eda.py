@@ -11,6 +11,7 @@ Purpose : Visualize attack label distribution in the
 from pathlib import Path
 import pandas as pd
 import matplotlib.pyplot as plt
+from logger import logger
 
 
 # ==========================================================
@@ -32,29 +33,49 @@ IMAGE_DIR.mkdir(parents=True, exist_ok=True)
 
 def plot_attack_distribution():
 
+    logger.info("Attack distribution visualization started.")
+
     try:
 
         print("=" * 60)
         print("Loading cleaned dataset...")
 
+        logger.info(f"Loading cleaned dataset from: {DATA_PATH}")
+
         df = pd.read_csv(DATA_PATH)
+
+        logger.info("Dataset loaded successfully.")
+        logger.debug(f"Dataset shape: {df.shape}")
 
         print("Dataset loaded successfully.")
         print(f"Dataset Shape : {df.shape}")
 
-        # Remove unwanted spaces
         df.columns = df.columns.str.strip()
 
-        # Count attack labels
+        logger.info("Column names stripped successfully.")
+
         attack_count = df["Label"].value_counts()
+
+        logger.info("Attack label distribution calculated.")
+
+        for label, count in attack_count.items():
+            logger.debug(f"{label}: {count}")
 
         print("\nGenerating attack distribution graph...")
 
+        logger.info("Generating attack distribution graph.")
+
         plt.style.use("dark_background")
+
+        logger.debug("Applied dark background style.")
 
         plt.figure(figsize=(12, 8))
 
+        logger.debug("Figure created with size (12, 8).")
+
         attack_count = attack_count.sort_values(ascending=True)
+
+        logger.info("Attack labels sorted in ascending order.")
 
         bars = plt.barh(
             attack_count.index,
@@ -63,7 +84,11 @@ def plot_attack_distribution():
             edgecolor="white"
         )
 
+        logger.info("Horizontal bar chart created.")
+
         plt.xscale("log")
+
+        logger.debug("X-axis set to logarithmic scale.")
 
         plt.title(
             "CICIDS2017 Attack Distribution",
@@ -88,22 +113,27 @@ def plot_attack_distribution():
             alpha=0.4
         )
 
-        # Display values on bars
+        logger.info("Chart title, labels, and grid configured.")
+
         for bar in bars:
             width = bar.get_width()
 
             plt.text(
-                width * 0.95,  # Bar ke andar
+                width * 0.95,
                 bar.get_y() + bar.get_height() / 2,
                 f"{int(width):,}",
                 va="center",
-                ha="right",  # Right align
+                ha="right",
                 fontsize=9,
                 color="white",
                 fontweight="bold"
             )
 
+        logger.info("Bar values added to chart.")
+
         plt.tight_layout()
+
+        logger.debug("Layout adjusted.")
 
         save_path = IMAGE_DIR / "Attack_Distribution_Horizontal.png"
 
@@ -113,17 +143,27 @@ def plot_attack_distribution():
             bbox_inches="tight"
         )
 
+        logger.info(f"Graph saved successfully at: {save_path}")
+
         plt.show()
+
+        logger.info("Graph displayed successfully.")
 
         print("Program completed successfully.")
         print("=" * 60)
 
+        logger.info("Attack distribution visualization completed successfully.")
+
     except FileNotFoundError:
+
+        logger.error(f"Clean dataset not found at: {DATA_PATH}")
 
         print("ERROR : Clean dataset not found.")
         print(f"Expected Location : {DATA_PATH}")
 
     except Exception as error:
+
+        logger.exception(f"Unexpected error occurred: {error}")
 
         print(f"Unexpected Error : {error}")
 
@@ -133,4 +173,5 @@ def plot_attack_distribution():
 # ==========================================================
 
 if __name__ == "__main__":
+    logger.info("Executing attack_distribution.py")
     plot_attack_distribution()

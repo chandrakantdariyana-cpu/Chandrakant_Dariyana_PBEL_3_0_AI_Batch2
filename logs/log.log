@@ -1,0 +1,482 @@
+2026-07-17 19:45:25,006 || INFO || predict.py || 34 || Prediction module started.
+2026-07-17 19:45:25,007 || INFO || predict.py || 46 || Loading model from: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\models\best_model.pkl
+2026-07-17 19:45:25,024 || INFO || predict.py || 52 || Loading scaler from: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\models\scaler.pkl
+2026-07-17 19:45:25,025 || INFO || predict.py || 58 || Loading label encoder from: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\models\label_encoder.pkl
+2026-07-17 19:45:25,026 || INFO || predict.py || 64 || All trained files loaded successfully.
+2026-07-17 19:45:25,092 || INFO || merge_dataset.py || 48 || Merge dataset process started.
+2026-07-17 19:45:25,093 || INFO || merge_dataset.py || 55 || Raw data directory: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\data\raw
+2026-07-17 19:45:25,093 || INFO || merge_dataset.py || 56 || Output file: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\data\processed\CICIDS2017_Final.csv
+2026-07-17 19:45:25,093 || INFO || merge_dataset.py || 64 || Loading dataset: Monday-WorkingHours.pcap_ISCX.csv
+2026-07-17 19:45:31,058 || INFO || merge_dataset.py || 71 || Monday-WorkingHours.pcap_ISCX.csv loaded successfully.
+2026-07-17 19:45:31,058 || INFO || merge_dataset.py || 78 || Monday-WorkingHours.pcap_ISCX.csv added to dataframe list.
+2026-07-17 19:45:31,058 || INFO || merge_dataset.py || 64 || Loading dataset: Tuesday-WorkingHours.pcap_ISCX.csv
+2026-07-17 19:45:35,785 || INFO || merge_dataset.py || 71 || Tuesday-WorkingHours.pcap_ISCX.csv loaded successfully.
+2026-07-17 19:45:35,785 || INFO || merge_dataset.py || 78 || Tuesday-WorkingHours.pcap_ISCX.csv added to dataframe list.
+2026-07-17 19:45:35,785 || INFO || merge_dataset.py || 64 || Loading dataset: Wednesday-workingHours.pcap_ISCX.csv
+2026-07-17 19:45:43,428 || INFO || merge_dataset.py || 71 || Wednesday-workingHours.pcap_ISCX.csv loaded successfully.
+2026-07-17 19:45:43,429 || INFO || merge_dataset.py || 78 || Wednesday-workingHours.pcap_ISCX.csv added to dataframe list.
+2026-07-17 19:45:43,429 || INFO || merge_dataset.py || 64 || Loading dataset: Thursday-WorkingHours-Morning-WebAttacks.pcap_ISCX.csv
+2026-07-17 19:45:45,261 || INFO || merge_dataset.py || 71 || Thursday-WorkingHours-Morning-WebAttacks.pcap_ISCX.csv loaded successfully.
+2026-07-17 19:45:45,261 || INFO || merge_dataset.py || 78 || Thursday-WorkingHours-Morning-WebAttacks.pcap_ISCX.csv added to dataframe list.
+2026-07-17 19:45:45,261 || INFO || merge_dataset.py || 64 || Loading dataset: Thursday-WorkingHours-Afternoon-Infilteration.pcap_ISCX.csv
+2026-07-17 19:45:48,251 || INFO || merge_dataset.py || 71 || Thursday-WorkingHours-Afternoon-Infilteration.pcap_ISCX.csv loaded successfully.
+2026-07-17 19:45:48,251 || INFO || merge_dataset.py || 78 || Thursday-WorkingHours-Afternoon-Infilteration.pcap_ISCX.csv added to dataframe list.
+2026-07-17 19:45:48,251 || INFO || merge_dataset.py || 64 || Loading dataset: Friday-WorkingHours-Morning.pcap_ISCX.csv
+2026-07-17 19:45:50,241 || INFO || merge_dataset.py || 71 || Friday-WorkingHours-Morning.pcap_ISCX.csv loaded successfully.
+2026-07-17 19:45:50,241 || INFO || merge_dataset.py || 78 || Friday-WorkingHours-Morning.pcap_ISCX.csv added to dataframe list.
+2026-07-17 19:45:50,241 || INFO || merge_dataset.py || 64 || Loading dataset: Friday-WorkingHours-Afternoon-PortScan.pcap_ISCX.csv
+2026-07-17 19:45:53,002 || INFO || merge_dataset.py || 71 || Friday-WorkingHours-Afternoon-PortScan.pcap_ISCX.csv loaded successfully.
+2026-07-17 19:45:53,002 || INFO || merge_dataset.py || 78 || Friday-WorkingHours-Afternoon-PortScan.pcap_ISCX.csv added to dataframe list.
+2026-07-17 19:45:53,002 || INFO || merge_dataset.py || 64 || Loading dataset: Friday-WorkingHours-Afternoon-DDoS.pcap_ISCX.csv
+2026-07-17 19:45:55,473 || INFO || merge_dataset.py || 71 || Friday-WorkingHours-Afternoon-DDoS.pcap_ISCX.csv loaded successfully.
+2026-07-17 19:45:55,474 || INFO || merge_dataset.py || 78 || Friday-WorkingHours-Afternoon-DDoS.pcap_ISCX.csv added to dataframe list.
+2026-07-17 19:45:55,474 || INFO || merge_dataset.py || 82 || Combining all datasets.
+2026-07-17 19:45:56,279 || INFO || merge_dataset.py || 86 || Datasets combined successfully.
+2026-07-17 19:47:38,418 || INFO || merge_dataset.py || 91 || Merged dataset saved successfully.
+2026-07-17 19:47:38,418 || INFO || merge_dataset.py || 100 || Merge dataset process completed successfully.
+2026-07-17 19:47:38,790 || INFO || clean.py || 39 || Dataset cleaning process started.
+2026-07-17 19:47:38,790 || INFO || clean.py || 46 || Loading dataset from: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\data\processed\CICIDS2017_Final.csv
+2026-07-17 19:48:11,494 || INFO || clean.py || 50 || Dataset loaded successfully.
+2026-07-17 19:48:34,581 || INFO || clean.py || 58 || Duplicate rows found: 308381
+2026-07-17 19:48:58,271 || INFO || clean.py || 68 || Numeric columns selected for infinite value checking.
+2026-07-17 19:48:58,640 || INFO || clean.py || 72 || Infinite values found: 2775
+2026-07-17 19:49:00,437 || INFO || clean.py || 76 || Infinite values replaced with NaN.
+2026-07-17 19:49:00,822 || INFO || clean.py || 82 || Missing values found: 3128
+2026-07-17 19:49:02,321 || INFO || clean.py || 92 || Final cleaned dataset shape: (2520798, 79)
+2026-07-17 19:50:36,164 || INFO || clean.py || 96 || Clean dataset saved successfully at: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\data\processed\CICIDS2017_Clean.csv
+2026-07-17 19:50:36,164 || INFO || clean.py || 104 || Dataset cleaning process completed successfully.
+2026-07-17 19:50:36,395 || INFO || label_analysis.py || 33 || Label analysis process started.
+2026-07-17 19:50:36,396 || INFO || label_analysis.py || 40 || Loading cleaned dataset from: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\data\processed\CICIDS2017_Clean.csv
+2026-07-17 19:51:06,208 || INFO || label_analysis.py || 44 || Cleaned dataset loaded successfully.
+2026-07-17 19:51:06,232 || INFO || label_analysis.py || 52 || Column names stripped successfully.
+2026-07-17 19:51:06,232 || INFO || label_analysis.py || 58 || Displaying dataset columns.
+2026-07-17 19:51:06,241 || INFO || label_analysis.py || 68 || Calculating attack label distribution.
+2026-07-17 19:51:06,311 || INFO || label_analysis.py || 72 || Total attack classes found: 15
+2026-07-17 19:51:06,315 || INFO || label_analysis.py || 83 || Label analysis completed successfully.
+2026-07-17 19:51:06,430 || INFO || eda.py || 36 || Attack distribution visualization started.
+2026-07-17 19:51:06,431 || INFO || eda.py || 43 || Loading cleaned dataset from: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\data\processed\CICIDS2017_Clean.csv
+2026-07-17 19:51:39,587 || INFO || eda.py || 47 || Dataset loaded successfully.
+2026-07-17 19:51:39,588 || INFO || eda.py || 55 || Column names stripped successfully.
+2026-07-17 19:51:39,664 || INFO || eda.py || 59 || Attack label distribution calculated.
+2026-07-17 19:51:39,666 || INFO || eda.py || 66 || Generating attack distribution graph.
+2026-07-17 19:51:39,688 || INFO || eda.py || 78 || Attack labels sorted in ascending order.
+2026-07-17 19:51:39,744 || INFO || eda.py || 87 || Horizontal bar chart created.
+2026-07-17 19:51:39,746 || INFO || eda.py || 116 || Chart title, labels, and grid configured.
+2026-07-17 19:51:39,750 || INFO || eda.py || 132 || Bar values added to chart.
+2026-07-17 19:51:41,787 || INFO || eda.py || 146 || Graph saved successfully at: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\images\Attack_Distribution_Horizontal.png
+2026-07-17 19:51:41,802 || INFO || eda.py || 150 || Graph displayed successfully.
+2026-07-17 19:51:41,803 || INFO || eda.py || 155 || Attack distribution visualization completed successfully.
+2026-07-17 19:51:41,803 || INFO || heatmap.py || 39 || Heatmap generation process started.
+2026-07-17 19:51:41,803 || INFO || heatmap.py || 45 || Loading cleaned dataset from: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\data\processed\CICIDS2017_Clean.csv
+2026-07-17 19:52:20,040 || INFO || heatmap.py || 49 || Dataset loaded successfully.
+2026-07-17 19:52:20,043 || INFO || heatmap.py || 57 || Numeric columns selected.
+2026-07-17 19:53:29,853 || INFO || heatmap.py || 64 || Correlation matrix calculated.
+2026-07-17 19:53:29,869 || INFO || heatmap.py || 69 || Top 20 features selected for heatmap.
+2026-07-17 19:53:29,894 || INFO || heatmap.py || 81 || Heatmap image generated.
+2026-07-17 19:53:29,981 || INFO || heatmap.py || 104 || Chart title, axes labels, and colorbar configured.
+2026-07-17 19:53:32,429 || INFO || heatmap.py || 118 || Heatmap saved successfully at: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\images\heatmap.png
+2026-07-17 19:53:32,445 || INFO || heatmap.py || 125 || Heatmap displayed successfully.
+2026-07-17 19:53:32,445 || INFO || heatmap.py || 129 || Heatmap figure closed.
+2026-07-17 19:53:32,446 || INFO || heatmap.py || 134 || Heatmap generation process completed successfully.
+2026-07-17 19:53:32,602 || INFO || feature_selection.py || 41 || Feature selection process started.
+2026-07-17 19:53:32,602 || INFO || feature_selection.py || 48 || Loading cleaned dataset from: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\data\processed\CICIDS2017_Clean.csv
+2026-07-17 19:54:10,595 || INFO || feature_selection.py || 52 || Dataset loaded successfully.
+2026-07-17 19:54:10,596 || INFO || feature_selection.py || 60 || Column names stripped successfully.
+2026-07-17 19:54:10,596 || INFO || feature_selection.py || 66 || 'Label' column found successfully.
+2026-07-17 19:54:10,615 || INFO || feature_selection.py || 71 || Features and target variable separated.
+2026-07-17 19:54:10,616 || INFO || feature_selection.py || 78 || VarianceThreshold initialized.
+2026-07-17 19:54:18,257 || INFO || feature_selection.py || 82 || VarianceThreshold applied successfully.
+2026-07-17 19:54:18,264 || INFO || feature_selection.py || 88 || Removed features: 8
+2026-07-17 19:54:18,264 || INFO || feature_selection.py || 89 || Remaining features: 70
+2026-07-17 19:54:19,027 || INFO || feature_selection.py || 102 || Selected feature dataframe created.
+2026-07-17 19:54:19,033 || INFO || feature_selection.py || 106 || Target column added back to selected dataset.
+2026-07-17 19:56:54,378 || INFO || feature_selection.py || 111 || Feature selected dataset saved successfully at: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\data\processed\CICIDS2017_FeatureSelected.csv
+2026-07-17 19:56:54,379 || INFO || feature_selection.py || 119 || Feature selection process completed successfully.
+2026-07-17 19:56:54,732 || INFO || data_preprocessing.py || 244 || Complete data preparation pipeline started.
+2026-07-17 19:56:54,733 || INFO || data_preprocessing.py || 48 || Loading feature selected dataset started.
+2026-07-17 19:56:54,734 || INFO || data_preprocessing.py || 54 || Dataset path: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\data\processed\CICIDS2017_FeatureSelected.csv
+2026-07-17 19:57:25,036 || INFO || data_preprocessing.py || 58 || Dataset loaded successfully.
+2026-07-17 19:57:25,628 || INFO || data_preprocessing.py || 66 || Development sample selected.
+2026-07-17 19:57:25,643 || INFO || data_preprocessing.py || 80 || Dataset cleaning started.
+2026-07-17 19:57:25,644 || INFO || data_preprocessing.py || 86 || Column names stripped.
+2026-07-17 19:57:26,986 || INFO || data_preprocessing.py || 90 || Duplicate rows found: 0
+2026-07-17 19:57:28,311 || INFO || data_preprocessing.py || 100 || Infinite values found: 0
+2026-07-17 19:57:28,452 || INFO || data_preprocessing.py || 108 || Infinite values replaced with NaN.
+2026-07-17 19:57:28,493 || INFO || data_preprocessing.py || 112 || Missing values found: 0
+2026-07-17 19:57:28,530 || INFO || data_preprocessing.py || 123 || Dataset cleaning completed.
+2026-07-17 19:57:28,532 || INFO || data_preprocessing.py || 134 || Splitting features and labels.
+2026-07-17 19:57:28,534 || INFO || data_preprocessing.py || 157 || Label encoding started.
+2026-07-17 19:57:28,623 || INFO || data_preprocessing.py || 165 || Total classes encoded: 15
+2026-07-17 19:57:28,637 || INFO || data_preprocessing.py || 173 || Label encoder saved at: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\models\label_encoder.pkl
+2026-07-17 19:57:28,637 || INFO || data_preprocessing.py || 184 || Splitting dataset into training and testing.
+2026-07-17 19:57:28,871 || INFO || data_preprocessing.py || 214 || Feature scaling started.
+2026-07-17 19:57:29,156 || INFO || data_preprocessing.py || 222 || Training features scaled.
+2026-07-17 19:57:29,177 || INFO || data_preprocessing.py || 226 || Testing features scaled.
+2026-07-17 19:57:29,183 || INFO || data_preprocessing.py || 233 || Scaler saved at: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\models\scaler.pkl
+2026-07-17 19:57:29,193 || INFO || data_preprocessing.py || 264 || Dataset preparation completed successfully.
+2026-07-17 19:57:29,215 || INFO || train_all_models.py || 155 || train_all_models.py execution started.
+2026-07-17 19:57:29,216 || INFO || train_all_models.py || 163 || Preparing dataset for training.
+2026-07-17 19:57:29,217 || INFO || data_preprocessing.py || 244 || Complete data preparation pipeline started.
+2026-07-17 19:57:29,217 || INFO || data_preprocessing.py || 48 || Loading feature selected dataset started.
+2026-07-17 19:57:29,217 || INFO || data_preprocessing.py || 54 || Dataset path: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\data\processed\CICIDS2017_FeatureSelected.csv
+2026-07-17 19:57:54,329 || INFO || data_preprocessing.py || 58 || Dataset loaded successfully.
+2026-07-17 19:57:54,835 || INFO || data_preprocessing.py || 66 || Development sample selected.
+2026-07-17 19:57:54,835 || INFO || data_preprocessing.py || 80 || Dataset cleaning started.
+2026-07-17 19:57:54,836 || INFO || data_preprocessing.py || 86 || Column names stripped.
+2026-07-17 19:57:56,174 || INFO || data_preprocessing.py || 90 || Duplicate rows found: 0
+2026-07-17 19:57:57,500 || INFO || data_preprocessing.py || 100 || Infinite values found: 0
+2026-07-17 19:57:57,631 || INFO || data_preprocessing.py || 108 || Infinite values replaced with NaN.
+2026-07-17 19:57:57,667 || INFO || data_preprocessing.py || 112 || Missing values found: 0
+2026-07-17 19:57:57,695 || INFO || data_preprocessing.py || 123 || Dataset cleaning completed.
+2026-07-17 19:57:57,695 || INFO || data_preprocessing.py || 134 || Splitting features and labels.
+2026-07-17 19:57:57,697 || INFO || data_preprocessing.py || 157 || Label encoding started.
+2026-07-17 19:57:57,782 || INFO || data_preprocessing.py || 165 || Total classes encoded: 15
+2026-07-17 19:57:57,783 || INFO || data_preprocessing.py || 173 || Label encoder saved at: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\models\label_encoder.pkl
+2026-07-17 19:57:57,784 || INFO || data_preprocessing.py || 184 || Splitting dataset into training and testing.
+2026-07-17 19:57:58,041 || INFO || data_preprocessing.py || 214 || Feature scaling started.
+2026-07-17 19:57:58,296 || INFO || data_preprocessing.py || 222 || Training features scaled.
+2026-07-17 19:57:58,318 || INFO || data_preprocessing.py || 226 || Testing features scaled.
+2026-07-17 19:57:58,321 || INFO || data_preprocessing.py || 233 || Scaler saved at: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\models\scaler.pkl
+2026-07-17 19:57:58,331 || INFO || data_preprocessing.py || 264 || Dataset preparation completed successfully.
+2026-07-17 19:57:58,344 || INFO || train_all_models.py || 174 || Dataset prepared successfully.
+2026-07-17 19:57:58,362 || INFO || train_all_models.py || 229 || Total models to train: 5
+2026-07-17 19:57:58,362 || INFO || train_all_models.py || 232 || Starting model: Logistic Regression
+2026-07-17 19:57:58,363 || INFO || train_all_models.py || 61 || Training started for Logistic Regression.
+2026-07-17 19:58:19,850 || INFO || train_all_models.py || 69 || Logistic Regression trained successfully.
+2026-07-17 19:58:19,866 || INFO || train_all_models.py || 73 || Prediction completed for Logistic Regression.
+2026-07-17 19:58:19,896 || INFO || train_all_models.py || 81 || Classification report generated for Logistic Regression.
+2026-07-17 19:58:19,922 || INFO || train_all_models.py || 109 || Logistic Regression Metrics -> Accuracy=0.9762, Precision=0.9784, Recall=0.9762, F1=0.9764
+2026-07-17 19:58:19,923 || INFO || train_all_models.py || 140 || Saving model: logistic_regression
+2026-07-17 19:58:19,926 || INFO || train_all_models.py || 144 || Model saved successfully: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\models\logistic_regression.pkl
+2026-07-17 19:58:19,926 || INFO || train_all_models.py || 250 || Logistic Regression completed successfully.
+2026-07-17 19:58:19,926 || INFO || train_all_models.py || 232 || Starting model: Random Forest
+2026-07-17 19:58:19,926 || INFO || train_all_models.py || 61 || Training started for Random Forest.
+2026-07-17 19:58:31,792 || INFO || train_all_models.py || 69 || Random Forest trained successfully.
+2026-07-17 19:58:32,559 || INFO || train_all_models.py || 73 || Prediction completed for Random Forest.
+2026-07-17 19:58:32,586 || INFO || train_all_models.py || 81 || Classification report generated for Random Forest.
+2026-07-17 19:58:32,617 || INFO || train_all_models.py || 109 || Random Forest Metrics -> Accuracy=0.9950, Precision=0.9968, Recall=0.9950, F1=0.9957
+2026-07-17 19:58:32,618 || INFO || train_all_models.py || 140 || Saving model: random_forest
+2026-07-17 19:58:32,776 || INFO || train_all_models.py || 144 || Model saved successfully: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\models\random_forest.pkl
+2026-07-17 19:58:32,776 || INFO || train_all_models.py || 250 || Random Forest completed successfully.
+2026-07-17 19:58:32,776 || INFO || train_all_models.py || 232 || Starting model: Decision Tree
+2026-07-17 19:58:32,776 || INFO || train_all_models.py || 61 || Training started for Decision Tree.
+2026-07-17 19:58:43,925 || INFO || train_all_models.py || 69 || Decision Tree trained successfully.
+2026-07-17 19:58:43,958 || INFO || train_all_models.py || 73 || Prediction completed for Decision Tree.
+2026-07-17 19:58:43,987 || INFO || train_all_models.py || 81 || Classification report generated for Decision Tree.
+2026-07-17 19:58:44,020 || INFO || train_all_models.py || 109 || Decision Tree Metrics -> Accuracy=0.9977, Precision=0.9977, Recall=0.9977, F1=0.9977
+2026-07-17 19:58:44,023 || INFO || train_all_models.py || 140 || Saving model: decision_tree
+2026-07-17 19:58:44,025 || INFO || train_all_models.py || 144 || Model saved successfully: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\models\decision_tree.pkl
+2026-07-17 19:58:44,026 || INFO || train_all_models.py || 250 || Decision Tree completed successfully.
+2026-07-17 19:58:44,026 || INFO || train_all_models.py || 232 || Starting model: KNN
+2026-07-17 19:58:44,026 || INFO || train_all_models.py || 61 || Training started for KNN.
+2026-07-17 19:58:44,121 || INFO || train_all_models.py || 69 || KNN trained successfully.
+2026-07-17 19:59:00,422 || INFO || train_all_models.py || 73 || Prediction completed for KNN.
+2026-07-17 19:59:00,443 || INFO || train_all_models.py || 81 || Classification report generated for KNN.
+2026-07-17 19:59:00,472 || INFO || train_all_models.py || 109 || KNN Metrics -> Accuracy=0.9896, Precision=0.9893, Recall=0.9896, F1=0.9894
+2026-07-17 19:59:00,473 || INFO || train_all_models.py || 140 || Saving model: knn
+2026-07-17 19:59:00,542 || INFO || train_all_models.py || 144 || Model saved successfully: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\models\knn.pkl
+2026-07-17 19:59:00,543 || INFO || train_all_models.py || 250 || KNN completed successfully.
+2026-07-17 19:59:00,543 || INFO || train_all_models.py || 232 || Starting model: Naive Bayes
+2026-07-17 19:59:00,543 || INFO || train_all_models.py || 61 || Training started for Naive Bayes.
+2026-07-17 19:59:00,871 || INFO || train_all_models.py || 69 || Naive Bayes trained successfully.
+2026-07-17 19:59:01,425 || INFO || train_all_models.py || 73 || Prediction completed for Naive Bayes.
+2026-07-17 19:59:01,453 || INFO || train_all_models.py || 81 || Classification report generated for Naive Bayes.
+2026-07-17 19:59:01,489 || INFO || train_all_models.py || 109 || Naive Bayes Metrics -> Accuracy=0.7338, Precision=0.9771, Recall=0.7338, F1=0.8292
+2026-07-17 19:59:01,491 || INFO || train_all_models.py || 140 || Saving model: naive_bayes
+2026-07-17 19:59:01,494 || INFO || train_all_models.py || 144 || Model saved successfully: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\models\naive_bayes.pkl
+2026-07-17 19:59:01,495 || INFO || train_all_models.py || 250 || Naive Bayes completed successfully.
+2026-07-17 19:59:01,523 || INFO || train_all_models.py || 262 || X_test.pkl saved successfully.
+2026-07-17 19:59:01,524 || INFO || train_all_models.py || 263 || y_test.pkl saved successfully.
+2026-07-17 19:59:01,538 || INFO || train_all_models.py || 289 || Model comparison report generated.
+2026-07-17 19:59:01,538 || INFO || train_all_models.py || 290 || Comparison report saved at: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\reports\model_comparison.csv
+2026-07-17 19:59:01,569 || INFO || train_all_models.py || 308 || Best model selected: Decision Tree with accuracy 0.9977
+2026-07-17 19:59:01,572 || INFO || train_all_models.py || 318 || Best model saved at: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\models\best_model.pkl
+2026-07-17 19:59:01,573 || INFO || train_all_models.py || 334 || All models trained successfully.
+2026-07-17 19:59:01,604 || INFO || model_evaluation.py || 50 || Model evaluation started.
+2026-07-17 19:59:01,605 || INFO || model_evaluation.py || 56 || Loading best model.
+2026-07-17 19:59:01,636 || INFO || model_evaluation.py || 61 || Loading label encoder.
+2026-07-17 19:59:01,638 || INFO || model_evaluation.py || 66 || Loading scaler.
+2026-07-17 19:59:01,641 || INFO || model_evaluation.py || 71 || Loading X_test.
+2026-07-17 19:59:01,675 || INFO || model_evaluation.py || 76 || Loading y_test.
+2026-07-17 19:59:01,692 || INFO || model_evaluation.py || 81 || All required files loaded successfully.
+2026-07-17 19:59:01,693 || INFO || model_evaluation.py || 96 || Making predictions using best model.
+2026-07-17 19:59:01,710 || INFO || model_evaluation.py || 100 || Prediction completed.
+2026-07-17 19:59:01,710 || INFO || model_evaluation.py || 107 || Calculating evaluation metrics.
+2026-07-17 19:59:01,740 || INFO || model_evaluation.py || 135 || Metrics -> Accuracy=0.9977, Precision=0.9977, Recall=0.9977, F1=0.9977
+2026-07-17 19:59:01,742 || INFO || model_evaluation.py || 157 || Generating classification report.
+2026-07-17 19:59:01,776 || INFO || model_evaluation.py || 188 || Classification report saved at: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\reports\classification_report.txt
+2026-07-17 19:59:01,776 || INFO || model_evaluation.py || 197 || Generating confusion matrix.
+2026-07-17 19:59:01,802 || INFO || model_evaluation.py || 225 || Normalizing confusion matrix.
+2026-07-17 19:59:01,803 || INFO || model_evaluation.py || 234 || Creating confusion matrix heatmap.
+2026-07-17 19:59:03,878 || INFO || model_evaluation.py || 283 || Confusion matrix saved at: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\results\confusion_matrix.png
+2026-07-17 19:59:03,879 || INFO || model_evaluation.py || 287 || Confusion matrix figure closed.
+2026-07-17 19:59:03,880 || INFO || model_evaluation.py || 299 || Model evaluation completed successfully.
+2026-07-17 19:59:03,898 || INFO || predict.py || 171 || Executing predict.py
+2026-07-17 19:59:03,899 || INFO || predict.py || 187 || Test file selected: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\data\processed\CICIDS2017_FeatureSelected.csv
+2026-07-17 19:59:03,899 || INFO || predict.py || 129 || Prediction process started.
+2026-07-17 19:59:03,900 || INFO || predict.py || 77 || Preparing input data from: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\data\processed\CICIDS2017_FeatureSelected.csv
+2026-07-17 19:59:28,585 || INFO || predict.py || 83 || Input dataset loaded successfully.
+2026-07-17 19:59:28,586 || INFO || predict.py || 90 || Column names stripped successfully.
+2026-07-17 19:59:28,586 || INFO || predict.py || 94 || Label column found and removed.
+2026-07-17 19:59:30,528 || INFO || predict.py || 106 || Infinite values replaced with NaN.
+2026-07-17 19:59:30,907 || INFO || predict.py || 110 || Missing values found: 0
+2026-07-17 19:59:31,118 || INFO || predict.py || 117 || Missing values filled with 0.
+2026-07-17 19:59:31,118 || INFO || predict.py || 137 || Scaling input data.
+2026-07-17 19:59:32,290 || INFO || predict.py || 143 || Input data scaled successfully.
+2026-07-17 19:59:32,291 || INFO || predict.py || 148 || Generating predictions.
+2026-07-17 19:59:33,352 || INFO || predict.py || 154 || Predictions generated successfully.
+2026-07-17 19:59:33,434 || INFO || predict.py || 161 || Prediction labels decoded successfully.
+2026-07-17 19:59:35,419 || INFO || predict.py || 204 || Prediction summary generated.
+2026-07-17 19:59:35,423 || INFO || predict.py || 218 || Prediction process completed successfully.
+2026-07-17 19:59:36,643 || INFO || app.py || 21 || Streamlit Dashboard Started.
+2026-07-17 19:59:36,643 || INFO || app.py || 22 || Page configuration completed.
+2026-07-17 19:59:36,643 || INFO || app.py || 31 || Base Directory : C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\src
+2026-07-17 19:59:36,643 || INFO || app.py || 32 || Model Directory : C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\src\models
+2026-07-17 19:59:36,643 || INFO || app.py || 33 || Model Path : models/best_model.pkl
+2026-07-17 19:59:36,643 || INFO || app.py || 34 || Scaler Path : models/scaler.pkl
+2026-07-17 19:59:36,643 || INFO || app.py || 35 || Encoder Path : models/label_encoder.pkl
+2026-07-17 19:59:36,644 || INFO || app.py || 40 || Loading dashboard style file.
+2026-07-17 19:59:36,644 || INFO || app.py || 41 || Dashboard style loaded successfully.
+2026-07-17 19:59:36,644 || INFO || app.py || 42 || Loading dashboard style file.
+2026-07-17 19:59:36,644 || INFO || app.py || 47 || Dashboard style loaded successfully.
+2026-07-17 19:59:37,494 || INFO || app.py || 51 || Custom CSS applied successfully.
+2026-07-17 20:02:21,564 || INFO || app.py || 21 || Streamlit Dashboard Started.
+2026-07-17 20:02:21,564 || INFO || app.py || 22 || Page configuration completed.
+2026-07-17 20:02:21,565 || INFO || app.py || 31 || Base Directory : C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\src
+2026-07-17 20:02:21,565 || INFO || app.py || 32 || Model Directory : C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\src\models
+2026-07-17 20:02:21,565 || INFO || app.py || 33 || Model Path : models/best_model.pkl
+2026-07-17 20:02:21,565 || INFO || app.py || 34 || Scaler Path : models/scaler.pkl
+2026-07-17 20:02:21,565 || INFO || app.py || 35 || Encoder Path : models/label_encoder.pkl
+2026-07-17 20:02:21,566 || INFO || app.py || 40 || Loading dashboard style file.
+2026-07-17 20:02:21,566 || INFO || app.py || 41 || Dashboard style loaded successfully.
+2026-07-17 20:02:21,566 || INFO || app.py || 42 || Loading dashboard style file.
+2026-07-17 20:02:21,566 || INFO || app.py || 47 || Dashboard style loaded successfully.
+2026-07-17 20:02:22,645 || INFO || app.py || 51 || Custom CSS applied successfully.
+2026-07-17 20:02:34,701 || INFO || app.py || 21 || Streamlit Dashboard Started.
+2026-07-17 20:02:34,701 || INFO || app.py || 22 || Page configuration completed.
+2026-07-17 20:02:34,701 || INFO || app.py || 31 || Base Directory : C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\src
+2026-07-17 20:02:34,701 || INFO || app.py || 32 || Model Directory : C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\src\models
+2026-07-17 20:02:34,701 || INFO || app.py || 33 || Model Path : models/best_model.pkl
+2026-07-17 20:02:34,701 || INFO || app.py || 34 || Scaler Path : models/scaler.pkl
+2026-07-17 20:02:34,702 || INFO || app.py || 35 || Encoder Path : models/label_encoder.pkl
+2026-07-17 20:02:34,703 || INFO || app.py || 40 || Loading dashboard style file.
+2026-07-17 20:02:34,703 || INFO || app.py || 41 || Dashboard style loaded successfully.
+2026-07-17 20:02:34,703 || INFO || app.py || 42 || Loading dashboard style file.
+2026-07-17 20:02:34,704 || INFO || app.py || 47 || Dashboard style loaded successfully.
+2026-07-17 20:02:34,706 || INFO || app.py || 51 || Custom CSS applied successfully.
+2026-07-17 20:03:19,724 || INFO || app.py || 21 || Streamlit Dashboard Started.
+2026-07-17 20:03:19,725 || INFO || app.py || 22 || Page configuration completed.
+2026-07-17 20:03:19,726 || INFO || app.py || 31 || Base Directory : C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\src
+2026-07-17 20:03:19,726 || INFO || app.py || 32 || Model Directory : C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\src\models
+2026-07-17 20:03:19,726 || INFO || app.py || 33 || Model Path : models/best_model.pkl
+2026-07-17 20:03:19,726 || INFO || app.py || 34 || Scaler Path : models/scaler.pkl
+2026-07-17 20:03:19,726 || INFO || app.py || 35 || Encoder Path : models/label_encoder.pkl
+2026-07-17 20:03:19,729 || INFO || app.py || 40 || Loading dashboard style file.
+2026-07-17 20:03:19,729 || INFO || app.py || 41 || Dashboard style loaded successfully.
+2026-07-17 20:03:19,730 || INFO || app.py || 42 || Loading dashboard style file.
+2026-07-17 20:03:19,732 || INFO || app.py || 47 || Dashboard style loaded successfully.
+2026-07-17 20:03:19,733 || INFO || app.py || 51 || Custom CSS applied successfully.
+2026-07-17 20:03:34,830 || INFO || app.py || 21 || Streamlit Dashboard Started.
+2026-07-17 20:03:34,831 || INFO || app.py || 22 || Page configuration completed.
+2026-07-17 20:03:34,831 || INFO || app.py || 31 || Base Directory : C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\src
+2026-07-17 20:03:34,832 || INFO || app.py || 32 || Model Directory : C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\src\models
+2026-07-17 20:03:34,832 || INFO || app.py || 33 || Model Path : models/best_model.pkl
+2026-07-17 20:03:34,832 || INFO || app.py || 34 || Scaler Path : models/scaler.pkl
+2026-07-17 20:03:34,832 || INFO || app.py || 35 || Encoder Path : models/label_encoder.pkl
+2026-07-17 20:03:34,833 || INFO || app.py || 40 || Loading dashboard style file.
+2026-07-17 20:03:34,833 || INFO || app.py || 41 || Dashboard style loaded successfully.
+2026-07-17 20:03:34,833 || INFO || app.py || 42 || Loading dashboard style file.
+2026-07-17 20:03:34,834 || INFO || app.py || 47 || Dashboard style loaded successfully.
+2026-07-17 20:03:34,835 || INFO || app.py || 51 || Custom CSS applied successfully.
+2026-07-17 20:06:48,003 || INFO || app.py || 21 || Streamlit Dashboard Started.
+2026-07-17 20:06:48,005 || INFO || app.py || 22 || Page configuration completed.
+2026-07-17 20:06:48,006 || INFO || app.py || 31 || Base Directory : C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\src
+2026-07-17 20:06:48,006 || INFO || app.py || 32 || Model Directory : C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\src\models
+2026-07-17 20:06:48,006 || INFO || app.py || 33 || Model Path : models/best_model.pkl
+2026-07-17 20:06:48,006 || INFO || app.py || 34 || Scaler Path : models/scaler.pkl
+2026-07-17 20:06:48,007 || INFO || app.py || 35 || Encoder Path : models/label_encoder.pkl
+2026-07-17 20:06:48,008 || INFO || app.py || 40 || Loading dashboard style file.
+2026-07-17 20:06:48,008 || INFO || app.py || 41 || Dashboard style loaded successfully.
+2026-07-17 20:06:48,008 || INFO || app.py || 42 || Loading dashboard style file.
+2026-07-17 20:06:48,009 || INFO || app.py || 47 || Dashboard style loaded successfully.
+2026-07-17 20:06:49,100 || INFO || app.py || 51 || Custom CSS applied successfully.
+2026-07-17 20:18:31,518 || INFO || feature_selection.py || 146 || Executing feature_selection.py
+2026-07-17 20:18:31,518 || INFO || feature_selection.py || 42 || Feature selection process started.
+2026-07-17 20:18:31,519 || INFO || feature_selection.py || 49 || Loading cleaned dataset from: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\data\processed\CICIDS2017_Clean.csv
+2026-07-17 20:19:00,719 || INFO || feature_selection.py || 53 || Dataset loaded successfully.
+2026-07-17 20:19:00,731 || INFO || feature_selection.py || 61 || Column names stripped successfully.
+2026-07-17 20:19:00,731 || INFO || feature_selection.py || 67 || 'Label' column found successfully.
+2026-07-17 20:19:00,735 || INFO || feature_selection.py || 72 || Features and target variable separated.
+2026-07-17 20:19:00,735 || INFO || feature_selection.py || 79 || VarianceThreshold initialized.
+2026-07-17 20:19:06,789 || INFO || feature_selection.py || 83 || VarianceThreshold applied successfully.
+2026-07-17 20:19:06,796 || INFO || feature_selection.py || 89 || Removed features: 8
+2026-07-17 20:19:06,796 || INFO || feature_selection.py || 90 || Remaining features: 70
+2026-07-17 20:19:07,294 || INFO || feature_selection.py || 103 || Selected feature dataframe created.
+2026-07-17 20:19:07,300 || INFO || feature_selection.py || 112 || Target column added back to selected dataset.
+2026-07-17 20:21:41,668 || INFO || feature_selection.py || 117 || Feature selected dataset saved successfully at: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\data\processed\CICIDS2017_FeatureSelected.csv
+2026-07-17 20:21:41,669 || INFO || feature_selection.py || 125 || Feature selection process completed successfully.
+2026-07-17 20:24:51,911 || INFO || app.py || 21 || Streamlit Dashboard Started.
+2026-07-17 20:24:51,911 || INFO || app.py || 22 || Page configuration completed.
+2026-07-17 20:24:51,912 || INFO || app.py || 31 || Base Directory : C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\src
+2026-07-17 20:24:51,912 || INFO || app.py || 32 || Model Directory : C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\src\models
+2026-07-17 20:24:51,912 || INFO || app.py || 33 || Model Path : models/best_model.pkl
+2026-07-17 20:24:51,912 || INFO || app.py || 34 || Scaler Path : models/scaler.pkl
+2026-07-17 20:24:51,912 || INFO || app.py || 35 || Encoder Path : models/label_encoder.pkl
+2026-07-17 20:24:51,913 || INFO || app.py || 40 || Loading dashboard style file.
+2026-07-17 20:24:51,913 || INFO || app.py || 41 || Dashboard style loaded successfully.
+2026-07-17 20:24:51,913 || INFO || app.py || 42 || Loading dashboard style file.
+2026-07-17 20:24:51,914 || INFO || app.py || 47 || Dashboard style loaded successfully.
+2026-07-17 20:24:52,902 || INFO || app.py || 51 || Custom CSS applied successfully.
+2026-07-17 20:25:12,826 || INFO || app.py || 21 || Streamlit Dashboard Started.
+2026-07-17 20:25:12,827 || INFO || app.py || 22 || Page configuration completed.
+2026-07-17 20:25:12,827 || INFO || app.py || 31 || Base Directory : C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\src
+2026-07-17 20:25:12,827 || INFO || app.py || 32 || Model Directory : C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\src\models
+2026-07-17 20:25:12,827 || INFO || app.py || 33 || Model Path : models/best_model.pkl
+2026-07-17 20:25:12,828 || INFO || app.py || 34 || Scaler Path : models/scaler.pkl
+2026-07-17 20:25:12,828 || INFO || app.py || 35 || Encoder Path : models/label_encoder.pkl
+2026-07-17 20:25:12,829 || INFO || app.py || 40 || Loading dashboard style file.
+2026-07-17 20:25:12,829 || INFO || app.py || 41 || Dashboard style loaded successfully.
+2026-07-17 20:25:12,830 || INFO || app.py || 42 || Loading dashboard style file.
+2026-07-17 20:25:12,831 || INFO || app.py || 47 || Dashboard style loaded successfully.
+2026-07-17 20:25:12,833 || INFO || app.py || 51 || Custom CSS applied successfully.
+2026-07-17 20:51:21,644 || INFO || feature_selection.py || 146 || Executing feature_selection.py
+2026-07-17 20:51:21,644 || INFO || feature_selection.py || 42 || Feature selection process started.
+2026-07-17 20:51:21,644 || INFO || feature_selection.py || 49 || Loading cleaned dataset from: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\data\processed\CICIDS2017_Clean.csv
+2026-07-17 20:51:51,534 || INFO || feature_selection.py || 53 || Dataset loaded successfully.
+2026-07-17 20:51:51,540 || INFO || feature_selection.py || 61 || Column names stripped successfully.
+2026-07-17 20:51:51,541 || INFO || feature_selection.py || 67 || 'Label' column found successfully.
+2026-07-17 20:51:51,544 || INFO || feature_selection.py || 72 || Features and target variable separated.
+2026-07-17 20:51:51,545 || INFO || feature_selection.py || 79 || VarianceThreshold initialized.
+2026-07-17 20:51:57,998 || INFO || feature_selection.py || 83 || VarianceThreshold applied successfully.
+2026-07-17 20:51:58,018 || INFO || feature_selection.py || 89 || Removed features: 8
+2026-07-17 20:51:58,018 || INFO || feature_selection.py || 90 || Remaining features: 70
+2026-07-17 20:51:58,589 || INFO || feature_selection.py || 103 || Selected feature dataframe created.
+2026-07-17 20:51:58,605 || INFO || feature_selection.py || 112 || Target column added back to selected dataset.
+2026-07-17 20:54:33,283 || INFO || feature_selection.py || 117 || Feature selected dataset saved successfully at: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\data\processed\CICIDS2017_FeatureSelected.csv
+2026-07-17 20:54:33,284 || INFO || feature_selection.py || 125 || Feature selection process completed successfully.
+2026-07-17 20:54:47,043 || INFO || train_all_models.py || 155 || train_all_models.py execution started.
+2026-07-17 20:54:47,044 || INFO || train_all_models.py || 163 || Preparing dataset for training.
+2026-07-17 20:54:47,044 || INFO || data_preprocessing.py || 244 || Complete data preparation pipeline started.
+2026-07-17 20:54:47,044 || INFO || data_preprocessing.py || 48 || Loading feature selected dataset started.
+2026-07-17 20:54:47,044 || INFO || data_preprocessing.py || 54 || Dataset path: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\data\processed\CICIDS2017_FeatureSelected.csv
+2026-07-17 20:55:06,187 || INFO || data_preprocessing.py || 58 || Dataset loaded successfully.
+2026-07-17 20:55:06,690 || INFO || data_preprocessing.py || 66 || Development sample selected.
+2026-07-17 20:55:06,690 || INFO || data_preprocessing.py || 80 || Dataset cleaning started.
+2026-07-17 20:55:06,694 || INFO || data_preprocessing.py || 86 || Column names stripped.
+2026-07-17 20:55:07,837 || INFO || data_preprocessing.py || 90 || Duplicate rows found: 0
+2026-07-17 20:55:08,871 || INFO || data_preprocessing.py || 100 || Infinite values found: 0
+2026-07-17 20:55:09,010 || INFO || data_preprocessing.py || 108 || Infinite values replaced with NaN.
+2026-07-17 20:55:09,045 || INFO || data_preprocessing.py || 112 || Missing values found: 0
+2026-07-17 20:55:09,076 || INFO || data_preprocessing.py || 123 || Dataset cleaning completed.
+2026-07-17 20:55:09,076 || INFO || data_preprocessing.py || 134 || Splitting features and labels.
+2026-07-17 20:55:09,079 || INFO || data_preprocessing.py || 157 || Label encoding started.
+2026-07-17 20:55:09,198 || INFO || data_preprocessing.py || 165 || Total classes encoded: 15
+2026-07-17 20:55:09,200 || INFO || data_preprocessing.py || 173 || Label encoder saved at: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\models\label_encoder.pkl
+2026-07-17 20:55:09,200 || INFO || data_preprocessing.py || 184 || Splitting dataset into training and testing.
+2026-07-17 20:55:09,408 || INFO || data_preprocessing.py || 214 || Feature scaling started.
+2026-07-17 20:55:09,651 || INFO || data_preprocessing.py || 222 || Training features scaled.
+2026-07-17 20:55:09,674 || INFO || data_preprocessing.py || 226 || Testing features scaled.
+2026-07-17 20:55:09,692 || INFO || data_preprocessing.py || 233 || Scaler saved at: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\models\scaler.pkl
+2026-07-17 20:55:09,702 || INFO || data_preprocessing.py || 264 || Dataset preparation completed successfully.
+2026-07-17 20:55:09,714 || INFO || train_all_models.py || 174 || Dataset prepared successfully.
+2026-07-17 20:55:09,714 || INFO || train_all_models.py || 229 || Total models to train: 5
+2026-07-17 20:55:09,714 || INFO || train_all_models.py || 232 || Starting model: Logistic Regression
+2026-07-17 20:55:09,716 || INFO || train_all_models.py || 61 || Training started for Logistic Regression.
+2026-07-17 20:55:30,989 || INFO || train_all_models.py || 69 || Logistic Regression trained successfully.
+2026-07-17 20:55:31,003 || INFO || train_all_models.py || 73 || Prediction completed for Logistic Regression.
+2026-07-17 20:55:31,024 || INFO || train_all_models.py || 81 || Classification report generated for Logistic Regression.
+2026-07-17 20:55:31,045 || INFO || train_all_models.py || 109 || Logistic Regression Metrics -> Accuracy=0.9762, Precision=0.9784, Recall=0.9762, F1=0.9764
+2026-07-17 20:55:31,046 || INFO || train_all_models.py || 140 || Saving model: logistic_regression
+2026-07-17 20:55:31,048 || INFO || train_all_models.py || 144 || Model saved successfully: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\models\logistic_regression.pkl
+2026-07-17 20:55:31,048 || INFO || train_all_models.py || 250 || Logistic Regression completed successfully.
+2026-07-17 20:55:31,049 || INFO || train_all_models.py || 232 || Starting model: Random Forest
+2026-07-17 20:55:31,049 || INFO || train_all_models.py || 61 || Training started for Random Forest.
+2026-07-17 20:55:42,706 || INFO || train_all_models.py || 69 || Random Forest trained successfully.
+2026-07-17 20:55:43,410 || INFO || train_all_models.py || 73 || Prediction completed for Random Forest.
+2026-07-17 20:55:43,427 || INFO || train_all_models.py || 81 || Classification report generated for Random Forest.
+2026-07-17 20:55:43,449 || INFO || train_all_models.py || 109 || Random Forest Metrics -> Accuracy=0.9950, Precision=0.9968, Recall=0.9950, F1=0.9957
+2026-07-17 20:55:43,450 || INFO || train_all_models.py || 140 || Saving model: random_forest
+2026-07-17 20:55:43,576 || INFO || train_all_models.py || 144 || Model saved successfully: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\models\random_forest.pkl
+2026-07-17 20:55:43,577 || INFO || train_all_models.py || 250 || Random Forest completed successfully.
+2026-07-17 20:55:43,577 || INFO || train_all_models.py || 232 || Starting model: Decision Tree
+2026-07-17 20:55:43,577 || INFO || train_all_models.py || 61 || Training started for Decision Tree.
+2026-07-17 20:55:54,614 || INFO || train_all_models.py || 69 || Decision Tree trained successfully.
+2026-07-17 20:55:54,633 || INFO || train_all_models.py || 73 || Prediction completed for Decision Tree.
+2026-07-17 20:55:54,657 || INFO || train_all_models.py || 81 || Classification report generated for Decision Tree.
+2026-07-17 20:55:54,693 || INFO || train_all_models.py || 109 || Decision Tree Metrics -> Accuracy=0.9977, Precision=0.9977, Recall=0.9977, F1=0.9977
+2026-07-17 20:55:54,694 || INFO || train_all_models.py || 140 || Saving model: decision_tree
+2026-07-17 20:55:54,697 || INFO || train_all_models.py || 144 || Model saved successfully: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\models\decision_tree.pkl
+2026-07-17 20:55:54,697 || INFO || train_all_models.py || 250 || Decision Tree completed successfully.
+2026-07-17 20:55:54,698 || INFO || train_all_models.py || 232 || Starting model: KNN
+2026-07-17 20:55:54,698 || INFO || train_all_models.py || 61 || Training started for KNN.
+2026-07-17 20:55:54,783 || INFO || train_all_models.py || 69 || KNN trained successfully.
+2026-07-17 20:56:11,131 || INFO || train_all_models.py || 73 || Prediction completed for KNN.
+2026-07-17 20:56:11,153 || INFO || train_all_models.py || 81 || Classification report generated for KNN.
+2026-07-17 20:56:11,187 || INFO || train_all_models.py || 109 || KNN Metrics -> Accuracy=0.9896, Precision=0.9893, Recall=0.9896, F1=0.9894
+2026-07-17 20:56:11,188 || INFO || train_all_models.py || 140 || Saving model: knn
+2026-07-17 20:56:11,265 || INFO || train_all_models.py || 144 || Model saved successfully: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\models\knn.pkl
+2026-07-17 20:56:11,265 || INFO || train_all_models.py || 250 || KNN completed successfully.
+2026-07-17 20:56:11,265 || INFO || train_all_models.py || 232 || Starting model: Naive Bayes
+2026-07-17 20:56:11,265 || INFO || train_all_models.py || 61 || Training started for Naive Bayes.
+2026-07-17 20:56:11,520 || INFO || train_all_models.py || 69 || Naive Bayes trained successfully.
+2026-07-17 20:56:12,060 || INFO || train_all_models.py || 73 || Prediction completed for Naive Bayes.
+2026-07-17 20:56:12,098 || INFO || train_all_models.py || 81 || Classification report generated for Naive Bayes.
+2026-07-17 20:56:12,134 || INFO || train_all_models.py || 109 || Naive Bayes Metrics -> Accuracy=0.7338, Precision=0.9771, Recall=0.7338, F1=0.8292
+2026-07-17 20:56:12,135 || INFO || train_all_models.py || 140 || Saving model: naive_bayes
+2026-07-17 20:56:12,137 || INFO || train_all_models.py || 144 || Model saved successfully: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\models\naive_bayes.pkl
+2026-07-17 20:56:12,138 || INFO || train_all_models.py || 250 || Naive Bayes completed successfully.
+2026-07-17 20:56:12,169 || INFO || train_all_models.py || 262 || X_test.pkl saved successfully.
+2026-07-17 20:56:12,169 || INFO || train_all_models.py || 263 || y_test.pkl saved successfully.
+2026-07-17 20:56:12,194 || INFO || train_all_models.py || 289 || Model comparison report generated.
+2026-07-17 20:56:12,194 || INFO || train_all_models.py || 290 || Comparison report saved at: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\reports\model_comparison.csv
+2026-07-17 20:56:12,214 || INFO || train_all_models.py || 308 || Best model selected: Decision Tree with accuracy 0.9977
+2026-07-17 20:56:12,216 || INFO || train_all_models.py || 318 || Best model saved at: C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\models\best_model.pkl
+2026-07-17 20:56:12,219 || INFO || train_all_models.py || 334 || All models trained successfully.
+2026-07-17 20:57:06,701 || INFO || app.py || 22 || Streamlit Dashboard Started.
+2026-07-17 20:57:06,702 || INFO || app.py || 23 || Page configuration completed.
+2026-07-17 20:57:06,702 || INFO || app.py || 32 || Base Directory : C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\src
+2026-07-17 20:57:06,702 || INFO || app.py || 33 || Model Directory : C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\src\models
+2026-07-17 20:57:06,702 || INFO || app.py || 34 || Model Path : models/best_model.pkl
+2026-07-17 20:57:06,702 || INFO || app.py || 35 || Scaler Path : models/scaler.pkl
+2026-07-17 20:57:06,703 || INFO || app.py || 36 || Encoder Path : models/label_encoder.pkl
+2026-07-17 20:57:06,703 || INFO || app.py || 41 || Loading dashboard style file.
+2026-07-17 20:57:06,703 || INFO || app.py || 42 || Dashboard style loaded successfully.
+2026-07-17 20:57:06,703 || INFO || app.py || 43 || Loading dashboard style file.
+2026-07-17 20:57:06,704 || INFO || app.py || 48 || Dashboard style loaded successfully.
+2026-07-17 20:57:07,721 || INFO || app.py || 52 || Custom CSS applied successfully.
+2026-07-17 20:57:25,238 || INFO || app.py || 22 || Streamlit Dashboard Started.
+2026-07-17 20:57:25,238 || INFO || app.py || 23 || Page configuration completed.
+2026-07-17 20:57:25,238 || INFO || app.py || 32 || Base Directory : C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\src
+2026-07-17 20:57:25,238 || INFO || app.py || 33 || Model Directory : C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\src\models
+2026-07-17 20:57:25,239 || INFO || app.py || 34 || Model Path : models/best_model.pkl
+2026-07-17 20:57:25,239 || INFO || app.py || 35 || Scaler Path : models/scaler.pkl
+2026-07-17 20:57:25,240 || INFO || app.py || 36 || Encoder Path : models/label_encoder.pkl
+2026-07-17 20:57:25,241 || INFO || app.py || 41 || Loading dashboard style file.
+2026-07-17 20:57:25,241 || INFO || app.py || 42 || Dashboard style loaded successfully.
+2026-07-17 20:57:25,241 || INFO || app.py || 43 || Loading dashboard style file.
+2026-07-17 20:57:25,242 || INFO || app.py || 48 || Dashboard style loaded successfully.
+2026-07-17 20:57:25,244 || INFO || app.py || 52 || Custom CSS applied successfully.
+2026-07-17 20:58:15,577 || INFO || app.py || 22 || Streamlit Dashboard Started.
+2026-07-17 20:58:15,577 || INFO || app.py || 23 || Page configuration completed.
+2026-07-17 20:58:15,577 || INFO || app.py || 32 || Base Directory : C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\src
+2026-07-17 20:58:15,578 || INFO || app.py || 33 || Model Directory : C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\src\models
+2026-07-17 20:58:15,578 || INFO || app.py || 34 || Model Path : models/best_model.pkl
+2026-07-17 20:58:15,579 || INFO || app.py || 35 || Scaler Path : models/scaler.pkl
+2026-07-17 20:58:15,579 || INFO || app.py || 36 || Encoder Path : models/label_encoder.pkl
+2026-07-17 20:58:15,582 || INFO || app.py || 41 || Loading dashboard style file.
+2026-07-17 20:58:15,582 || INFO || app.py || 42 || Dashboard style loaded successfully.
+2026-07-17 20:58:15,582 || INFO || app.py || 43 || Loading dashboard style file.
+2026-07-17 20:58:15,583 || INFO || app.py || 48 || Dashboard style loaded successfully.
+2026-07-17 20:58:15,585 || INFO || app.py || 52 || Custom CSS applied successfully.
+2026-07-17 21:05:54,076 || INFO || app.py || 22 || Streamlit Dashboard Started.
+2026-07-17 21:05:54,076 || INFO || app.py || 23 || Page configuration completed.
+2026-07-17 21:05:54,077 || INFO || app.py || 32 || Base Directory : C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\src
+2026-07-17 21:05:54,077 || INFO || app.py || 33 || Model Directory : C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\src\models
+2026-07-17 21:05:54,077 || INFO || app.py || 34 || Model Path : models/best_model.pkl
+2026-07-17 21:05:54,077 || INFO || app.py || 35 || Scaler Path : models/scaler.pkl
+2026-07-17 21:05:54,079 || INFO || app.py || 36 || Encoder Path : models/label_encoder.pkl
+2026-07-17 21:05:54,080 || INFO || app.py || 41 || Loading dashboard style file.
+2026-07-17 21:05:54,080 || INFO || app.py || 42 || Dashboard style loaded successfully.
+2026-07-17 21:05:54,080 || INFO || app.py || 43 || Loading dashboard style file.
+2026-07-17 21:05:54,082 || INFO || app.py || 48 || Dashboard style loaded successfully.
+2026-07-17 21:05:54,083 || INFO || app.py || 52 || Custom CSS applied successfully.

@@ -29,6 +29,7 @@ from sklearn.metrics import (
 )
 
 from data_preprocessing import prepare_dataset
+from logger import logger
 
 
 # ==========================================================
@@ -57,24 +58,31 @@ def evaluate_model(
     y_test
 ):
 
+    logger.info(f"Training started for {model_name}.")
+
     print("\n" + "=" * 60)
     print(f"Training {model_name}...")
     print("=" * 60)
 
-    # Train Model
     model.fit(X_train, y_train)
 
-    # Prediction
+    logger.info(f"{model_name} trained successfully.")
+
     predictions = model.predict(X_test)
 
-    # Classification Report
-    print(classification_report(
+    logger.info(f"Prediction completed for {model_name}.")
+
+    report = classification_report(
         y_test,
         predictions,
         zero_division=0
-    ))
+    )
 
-    # Metrics
+    logger.info(f"Classification report generated for {model_name}.")
+    logger.debug(f"\n{report}")
+
+    print(report)
+
     accuracy = accuracy_score(y_test, predictions)
 
     precision = precision_score(
@@ -96,6 +104,14 @@ def evaluate_model(
         predictions,
         average="weighted",
         zero_division=0
+    )
+
+    logger.info(
+        f"{model_name} Metrics -> "
+        f"Accuracy={accuracy:.4f}, "
+        f"Precision={precision:.4f}, "
+        f"Recall={recall:.4f}, "
+        f"F1={f1:.4f}"
     )
 
     print(f"Accuracy  : {accuracy:.4f}")
@@ -121,7 +137,11 @@ def save_model(model, model_name):
 
     model_path = MODEL_DIR / f"{model_name}.pkl"
 
+    logger.info(f"Saving model: {model_name}")
+
     joblib.dump(model, model_path)
+
+    logger.info(f"Model saved successfully: {model_path}")
 
     print(f"{model_name} saved successfully.")
     print(model_path)
@@ -131,11 +151,16 @@ def save_model(model, model_name):
 # MAIN
 # ==========================================================
 
-if __name__ == "__main__":
+def main():
+    logger.info("train_all_models.py execution started.")
+
+    try:
 
         print("=" * 60)
         print("Loading Dataset...")
         print("=" * 60)
+
+        logger.info("Preparing dataset for training.")
 
         (
             X_train,
@@ -146,11 +171,11 @@ if __name__ == "__main__":
             scaler
         ) = prepare_dataset()
 
-        results = []
+        logger.info("Dataset prepared successfully.")
+        logger.debug(f"Training shape: {X_train.shape}")
+        logger.debug(f"Testing shape: {X_test.shape}")
 
-        # ======================================================
-        # MODELS
-        # ======================================================
+        results = []
 
         models = [
 
@@ -201,11 +226,11 @@ if __name__ == "__main__":
 
         ]
 
-        # ======================================================
-        # TRAIN ALL MODELS
-        # ======================================================
+        logger.info(f"Total models to train: {len(models)}")
 
         for display_name, file_name, model in models:
+            logger.info(f"Starting model: {display_name}")
+
             result = evaluate_model(
                 model,
                 display_name,
@@ -222,9 +247,7 @@ if __name__ == "__main__":
                 file_name
             )
 
-        # ======================================================
-        # SAVE TEST DATA
-        # ======================================================
+            logger.info(f"{display_name} completed successfully.")
 
         joblib.dump(
             X_test,
@@ -236,12 +259,11 @@ if __name__ == "__main__":
             MODEL_DIR / "y_test.pkl"
         )
 
+        logger.info("X_test.pkl saved successfully.")
+        logger.info("y_test.pkl saved successfully.")
+
         print("\nX_test.pkl saved successfully.")
         print("y_test.pkl saved successfully.")
-
-        # ======================================================
-        # MODEL COMPARISON
-        # ======================================================
 
         comparison = pd.DataFrame(results)
 
@@ -264,6 +286,9 @@ if __name__ == "__main__":
             index=False
         )
 
+        logger.info("Model comparison report generated.")
+        logger.info(f"Comparison report saved at: {comparison_path}")
+
         print("\n" + "=" * 60)
         print("MODEL COMPARISON")
         print("=" * 60)
@@ -273,10 +298,6 @@ if __name__ == "__main__":
         print("\nReport Saved Successfully.")
         print(comparison_path)
 
-        # ======================================================
-        # SAVE BEST MODEL
-        # ======================================================
-
         best_result = max(
             results,
             key=lambda x: x["Accuracy"]
@@ -284,10 +305,17 @@ if __name__ == "__main__":
 
         best_model = best_result["Model_Object"]
 
+        logger.info(
+            f"Best model selected: {best_result['Model']} "
+            f"with accuracy {best_result['Accuracy']:.4f}"
+        )
+
         joblib.dump(
             best_model,
             MODEL_DIR / "best_model.pkl"
         )
+
+        logger.info(f"Best model saved at: {MODEL_DIR / 'best_model.pkl'}")
 
         print("\n" + "=" * 60)
         print("BEST MODEL")
@@ -302,3 +330,13 @@ if __name__ == "__main__":
         print("\n" + "=" * 60)
         print("ALL MODELS TRAINED SUCCESSFULLY")
         print("=" * 60)
+
+        logger.info("All models trained successfully.")
+
+    except Exception as error:
+
+        logger.exception(f"Unexpected error during model training: {error}")
+        raise
+
+if __name__ == "__main__":
+    main()
