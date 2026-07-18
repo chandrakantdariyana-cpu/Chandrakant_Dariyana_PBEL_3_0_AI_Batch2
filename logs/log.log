@@ -480,3 +480,51 @@
 2026-07-17 21:05:54,080 || INFO || app.py || 43 || Loading dashboard style file.
 2026-07-17 21:05:54,082 || INFO || app.py || 48 || Dashboard style loaded successfully.
 2026-07-17 21:05:54,083 || INFO || app.py || 52 || Custom CSS applied successfully.
+2026-07-17 23:07:33,279 || INFO || app.py || 22 || Streamlit Dashboard Started.
+2026-07-17 23:07:33,283 || INFO || app.py || 23 || Page configuration completed.
+2026-07-17 23:07:33,283 || INFO || app.py || 32 || Base Directory : C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\src
+2026-07-17 23:07:33,283 || INFO || app.py || 33 || Model Directory : C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\src\models
+2026-07-17 23:07:33,283 || INFO || app.py || 34 || Model Path : models/best_model.pkl
+2026-07-17 23:07:33,283 || INFO || app.py || 35 || Scaler Path : models/scaler.pkl
+2026-07-17 23:07:33,283 || INFO || app.py || 36 || Encoder Path : models/label_encoder.pkl
+2026-07-17 23:07:33,285 || INFO || app.py || 41 || Loading dashboard style file.
+2026-07-17 23:07:33,285 || INFO || app.py || 42 || Dashboard style loaded successfully.
+2026-07-17 23:07:33,285 || INFO || app.py || 43 || Loading dashboard style file.
+2026-07-17 23:07:33,285 || INFO || app.py || 48 || Dashboard style loaded successfully.
+2026-07-17 23:07:34,474 || INFO || app.py || 52 || Custom CSS applied successfully.
+2026-07-17 23:08:07,353 || INFO || app.py || 22 || Streamlit Dashboard Started.
+2026-07-17 23:08:07,354 || INFO || app.py || 23 || Page configuration completed.
+2026-07-17 23:08:07,354 || INFO || app.py || 32 || Base Directory : C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\src
+2026-07-17 23:08:07,354 || INFO || app.py || 33 || Model Directory : C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\src\models
+2026-07-17 23:08:07,354 || INFO || app.py || 34 || Model Path : models/best_model.pkl
+2026-07-17 23:08:07,354 || INFO || app.py || 35 || Scaler Path : models/scaler.pkl
+2026-07-17 23:08:07,354 || INFO || app.py || 36 || Encoder Path : models/label_encoder.pkl
+2026-07-17 23:08:07,355 || INFO || app.py || 41 || Loading dashboard style file.
+2026-07-17 23:08:07,356 || INFO || app.py || 42 || Dashboard style loaded successfully.
+2026-07-17 23:08:07,356 || INFO || app.py || 43 || Loading dashboard style file.
+2026-07-17 23:08:07,357 || INFO || app.py || 48 || Dashboard style loaded successfully.
+2026-07-17 23:08:07,358 || INFO || app.py || 52 || Custom CSS applied successfully.
+2026-07-18 14:30:03,449 || INFO || app.py || 22 || Streamlit Dashboard Started.
+2026-07-18 14:30:03,449 || INFO || app.py || 23 || Page configuration completed.
+2026-07-18 14:30:03,449 || INFO || app.py || 32 || Base Directory : C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\src
+2026-07-18 14:30:03,450 || INFO || app.py || 33 || Model Directory : C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\src\models
+2026-07-18 14:30:03,450 || INFO || app.py || 34 || Model Path : models/best_model.pkl
+2026-07-18 14:30:03,450 || INFO || app.py || 35 || Scaler Path : models/scaler.pkl
+2026-07-18 14:30:03,451 || INFO || app.py || 36 || Encoder Path : models/label_encoder.pkl
+2026-07-18 14:30:03,452 || INFO || app.py || 41 || Loading dashboard style file.
+2026-07-18 14:30:03,452 || INFO || app.py || 42 || Dashboard style loaded successfully.
+2026-07-18 14:30:03,452 || INFO || app.py || 43 || Loading dashboard style file.
+2026-07-18 14:30:03,452 || INFO || app.py || 48 || Dashboard style loaded successfully.
+2026-07-18 14:30:04,188 || INFO || app.py || 52 || Custom CSS applied successfully.
+2026-07-18 14:30:20,172 || INFO || app.py || 22 || Streamlit Dashboard Started.
+2026-07-18 14:30:20,174 || INFO || app.py || 23 || Page configuration completed.
+2026-07-18 14:30:20,174 || INFO || app.py || 32 || Base Directory : C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\src
+2026-07-18 14:30:20,174 || INFO || app.py || 33 || Model Directory : C:\Users\Chandrakant\Desktop\AI-Based-Cyber-Threat-Detection-Framework\src\models
+2026-07-18 14:30:20,174 || INFO || app.py || 34 || Model Path : models/best_model.pkl
+2026-07-18 14:30:20,174 || INFO || app.py || 35 || Scaler Path : models/scaler.pkl
+2026-07-18 14:30:20,174 || INFO || app.py || 36 || Encoder Path : models/label_encoder.pkl
+2026-07-18 14:30:20,174 || INFO || app.py || 41 || Loading dashboard style file.
+2026-07-18 14:30:20,174 || INFO || app.py || 42 || Dashboard style loaded successfully.
+2026-07-18 14:30:20,174 || INFO || app.py || 43 || Loading dashboard style file.
+2026-07-18 14:30:20,175 || INFO || app.py || 48 || Dashboard style loaded successfully.
+2026-07-18 14:30:20,177 || INFO || app.py || 52 || Custom CSS applied successfully.
